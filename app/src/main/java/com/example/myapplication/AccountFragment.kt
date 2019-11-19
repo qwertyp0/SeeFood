@@ -79,15 +79,15 @@ class AccountFragment : Fragment() {
 
             if (empty == 0 && female!!.isChecked) {
                 var femaleBMR =  FEMALE_WEIGHT_FACTOR * map.get(weightText)!!
-                + FEMALE_HEIGHT_FACTOR * map.get(heightText)!!
-                - FEMALE_AGE_FACTOR * map.get(ageText)!!
-                + FEMALE_BMR_CONSTANT
+                                + FEMALE_HEIGHT_FACTOR * map.get(heightText)!!
+                                - FEMALE_AGE_FACTOR * map.get(ageText)!!
+                                + FEMALE_BMR_CONSTANT
                 result!!.setText(femaleBMR.toInt().toString())
             } else if (empty == 0 && male!!.isChecked) {
                 var maleBMR =  MALE_WEIGHT_FACTOR * map.get(weightText)!!
-                + MALE_HEIGHT_FACTOR * map.get(heightText)!!
-                - MALE_AGE_FACTOR * map.get(ageText)!!
-                + MALE_BMR_CONSTANT
+                                + MALE_HEIGHT_FACTOR * map.get(heightText)!!
+                                - MALE_AGE_FACTOR * map.get(ageText)!!
+                                + MALE_BMR_CONSTANT
                 result!!.setText(maleBMR.toInt().toString())
             } else if (empty == 1 && emptyEditText == heightText) {
                 Toast.makeText(context, "Enter your weight", Toast.LENGTH_LONG).show()
