@@ -1,0 +1,4 @@
+/Users/loganliao/Desktop/Current Semester/CMSC436/cmsc436-lliao12/labs/Lab3_Fragments/app/src/main/java/course/labs/fragmentslab/FeedFragmentData.kt
+/Users/loganliao/Desktop/Current Semester/CMSC436/cmsc436-lliao12/labs/Lab3_Fragments/app/src/main/java/course/labs/fragmentslab/MainActivity.kt
+/Users/loganliao/Desktop/Current Semester/CMSC436/cmsc436-lliao12/labs/Lab3_Fragments/app/src/main/java/course/labs/fragmentslab/FeedFragment.kt
+/Users/loganliao/Desktop/Current Semester/CMSC436/cmsc436-lliao12/labs/Lab3_Fragments/app/src/main/java/course/labs/fragmentslab/FriendsFragment.kt
