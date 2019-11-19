@@ -18,7 +18,6 @@ class AccountFragment : Fragment() {
 
 
     private var save: Button? = null
-    private var reset: Button? = null
     private var calculate: Button? = null
     private var heightText: EditText? = null
     private var weightText: EditText? = null
@@ -49,14 +48,6 @@ class AccountFragment : Fragment() {
             saveAccount()
         }
 
-        reset!!.setOnClickListener {
-            gender!!.clearCheck()
-            heightText!!.setText(null)
-            weightText!!.setText(null)
-            ageText!!.setText(null)
-            result!!.setText(null)
-        }
-
         calculate!!.setOnClickListener {
 
             var map = HashMap<EditText?, Int>()
@@ -64,7 +55,7 @@ class AccountFragment : Fragment() {
             var emptyEditText: EditText? = null
 
             listOfEditText.forEach {
-                if (it == null || it!!.text.toString() != "") {
+                if (it == null || it.text.toString() != "") {
                     empty++
                     emptyEditText = it
                 } else {
