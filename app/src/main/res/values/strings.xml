@@ -1,20 +1,11 @@
 <resources>
-    <string name="app_name">Nutri Genie</string>
+    <string name="app_name">NutraPal</string>
     <string name="title_home">Home</string>
     <string name="title_scan">Scanner</string>
     <string name="title_account">Profile</string>
-    <string name="title_settings">Settings</string>
-    <string name="home_title_text">Statistics Graph</string>
-    <string name="preferences_title">Preferences</string>
-    <string name="account_title_text">Profile</string>
-    <string name="scan_title_text">Scanner</string>
-    <string name="title_height">Height</string>
-    <string name="title_weight">Weight</string>
 
-    <string name="test_scan_button_text">Test Scan</string>
-    <string name="scan_button_text">Scan</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="height_label">Height</string>
     <string name="height_hint">Enter height in cm</string>
