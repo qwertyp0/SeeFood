@@ -55,7 +55,7 @@ class AccountFragment : Fragment() {
             var emptyEditText: EditText? = null
 
             listOfEditText.forEach {
-                if (it == null || it.text.toString() != "") {
+                if (it == null || it.text.toString().length == 0) {
                     empty++
                     emptyEditText = it
                 } else {
@@ -89,9 +89,7 @@ class AccountFragment : Fragment() {
             } else {
                 Toast.makeText(context, "Enter your Information", Toast.LENGTH_LONG).show()
             }
-
             // put data in database here and other stuff
-
         }
         return view
     }
@@ -100,7 +98,7 @@ class AccountFragment : Fragment() {
         if (result!!.text == null || result!!.text.isEmpty()) {
             Toast.makeText(context, "Calculate calories before saving.", Toast.LENGTH_LONG).show()
         } else {
-            val data = HashMap<String, Any>(4)
+            val data = HashMap<String, Int>(4)
 
             data[HEIGHT] = Integer.parseInt(heightText!!.text.toString())
 

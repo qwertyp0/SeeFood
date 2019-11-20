@@ -33,6 +33,51 @@
         android:textSize="30sp" />
 
     <TextView
+        android:id="@+id/gender_label"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/gender_label" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+
+        <RadioGroup
+            android:id="@+id/gender_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:checked="true"
+                android:buttonTint="@color/colorPrimary"
+                android:duplicateParentState="true"
+                android:text="@string/male_label" />
+
+            <RadioButton
+                android:id="@+id/female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:buttonTint="@color/colorPrimary"
+                android:checked="false"
+                android:text="@string/female_label" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <TextView
         android:id="@+id/height_label"
         style="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_width="wrap_content"
@@ -85,51 +130,6 @@
         android:selectAllOnFocus="false"
         android:singleLine="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
-    <TextView
-        android:id="@+id/gender_label"
-        style="@style/Base.TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/gender_label" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-
-
-        <RadioGroup
-            android:id="@+id/gender_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/male"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:checked="true"
-                android:buttonTint="@color/colorPrimary"
-                android:duplicateParentState="true"
-                android:text="@string/male_label" />
-
-            <RadioButton
-                android:id="@+id/female"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:buttonTint="@color/colorPrimary"
-                android:checked="false"
-                android:text="@string/female_label" />
-        </RadioGroup>
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/calculate"

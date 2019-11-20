@@ -13,7 +13,7 @@
     <string name="weight_hint">Enter weight in lbs</string>
     <string name="age_label">Age</string>
     <string name="age_hint">Enter age</string>
-    <string name="gender_label">Gender:</string>
+    <string name="gender_label">Gender</string>
     <string name="male_label">Male</string>
     <string name="female_label">Female</string>
     <string name="calculate_label">Calculate Daily Calories</string>
