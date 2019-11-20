@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
@@ -17,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="0dp" >
+            android:layout_marginBottom="-2dp">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/navigation"
@@ -27,10 +28,13 @@
                 android:theme="@style/Theme.MaterialComponents.Light"
                 app:menu="@menu/navigation" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
     </RelativeLayout>
 
-
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/side_nav"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/side_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
