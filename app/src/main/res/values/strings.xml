@@ -18,7 +18,7 @@
     <string name="female_label">Female</string>
     <string name="calculate_label">Calculate Daily Calories</string>
     <string name="result_label">Result:</string>
-    <string name="intake_label">Daily Calories intake</string>
+    <string name="intake_label">Daily Calorie Intake</string>
     <string name="save_label">Save</string>
     <string name="reset_label">Reset</string>
 </resources>

@@ -3,12 +3,11 @@ package com.example.myapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
-import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 private var mFragmentManager: FragmentManager? = null
-private val mLoadingFragment = LoadingFragment()
+private val mLoadingFragment = loadingFragment()
 private val mAccountFragment = AccountFragment()
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setBottomNav() {
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        // val toolbar = findViewById<Toolbar>(R.id.toolbar)
         // setSupportActionBar(toolbar)
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)
@@ -46,15 +45,15 @@ class MainActivity : AppCompatActivity() {
 
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    actionbar.setTitle("Profile")
+                    actionbar.title = "first"
                     mFragmentTransaction1.replace(R.id.fragment_container, mAccountFragment)
                 }
                 R.id.navigation_scan -> {
-                    actionbar.setTitle("Profile")
+                    actionbar.title = "second"
                     mFragmentTransaction1.replace(R.id.fragment_container, mAccountFragment)
                 }
                 R.id.navigation_account -> {
-                    actionbar.setTitle("Profile")
+                    actionbar.title = "third"
                     mFragmentTransaction1.replace(R.id.fragment_container, mAccountFragment)
                 }
             }
