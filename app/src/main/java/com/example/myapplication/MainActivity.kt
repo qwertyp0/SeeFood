@@ -2,13 +2,22 @@ package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.annotation.NonNull
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 private var mFragmentManager: FragmentManager? = null
 private val mLoadingFragment = loadingFragment()
 private val mAccountFragment = AccountFragment()
+
+private var mDatabase: DatabaseReference? = null
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +33,22 @@ class MainActivity : AppCompatActivity() {
         mFragmentTransaction.add(R.id.fragment_container, mLoadingFragment)
         mFragmentTransaction.commit()
         mFragmentManager!!.executePendingTransactions()
+    }
+
+    // going to need to start the firbase
+
+//    protected fun onStart() {
+//        super.onStart()
+//
+//        FirebaseAuth.getInstance()
+//        //.add
+//    }
+
+
+    // I think this is where you would do user oauth
+    @Override
+    public fun onAuthStateChanged(@NonNull firebaseAuth: FirebaseAuth ) {
+
     }
 
     private fun setBottomNav() {
