@@ -12,5 +12,5 @@
         android:layout_gravity="center"
         android:layout_marginTop="200dp"
         android:adjustViewBounds="true"
-        android:src="@drawable/ic_info_outline_black" />
+        android:src="@drawable/ic_assignment" />
 </LinearLayout>

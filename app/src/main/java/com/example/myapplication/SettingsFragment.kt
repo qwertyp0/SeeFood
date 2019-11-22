@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -26,7 +25,10 @@ class SettingsFragment : Fragment() {
     private var mFragmentManager: FragmentManager? = null
     private val mAccountFragment = AccountFragment()
     private val mAboutFragment = AboutFragment()
+    private val mGraphSettingsFragment = GraphSettingsFragment()
+    private val mHistoryFragment = HistoryFragment()
 
+    private var accountEmail: TextView? = null
     private var account: Button? = null
     private var graphSettings: Button? = null
     private var history: Button? = null
@@ -43,6 +45,10 @@ class SettingsFragment : Fragment() {
         history = view.findViewById(R.id.history_button)
         about = view.findViewById(R.id.about_button)
         logout = view.findViewById(R.id.logout_button)
+        accountEmail = view.findViewById(R.id.account_email)
+
+        // Todo this will be grabbed from database and replaced here
+        accountEmail!!.text = "joe.smith@gmail.com"
 
         // Todo make strings in R.vales.string for titles
         account!!.setOnClickListener {
@@ -61,7 +67,7 @@ class SettingsFragment : Fragment() {
             val mFragmentTransaction = mFragmentManager!!.beginTransaction()
             mFragmentTransaction.hide(this)
             mFragmentTransaction.addToBackStack("settingsFrag")
-            mFragmentTransaction.replace(android.R.id.content, mAccountFragment)
+            mFragmentTransaction.replace(android.R.id.content, mGraphSettingsFragment)
             mFragmentTransaction.commit()
         }
 
@@ -71,7 +77,7 @@ class SettingsFragment : Fragment() {
             val mFragmentTransaction = mFragmentManager!!.beginTransaction()
             mFragmentTransaction.hide(this)
             mFragmentTransaction.addToBackStack("settingsFrag")
-            mFragmentTransaction.replace(android.R.id.content, mAccountFragment)
+            mFragmentTransaction.replace(android.R.id.content, mHistoryFragment)
             mFragmentTransaction.commit()
         }
 
