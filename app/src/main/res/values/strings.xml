@@ -5,6 +5,13 @@
     <string name="title_account">Profile</string>
     <string name="title_settings">Settings</string>
 
+    <string name="account_label">Account</string>
+    <string name="graph_settings_label">Graph Settings</string>
+    <string name="history_label">History</string>
+    <string name="about_label">About</string>
+    <string name="logout_label">Logout</string>
+
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="height_label">Height</string>

@@ -2,10 +2,12 @@ package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
 import androidx.annotation.NonNull
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.widget.Toolbar
 
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.navigation.NavigationView
@@ -18,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase
 private var mFragmentManager: FragmentManager? = null
 private val mLoadingFragment = loadingFragment()
 private val mAccountFragment = AccountFragment()
+private val mSettingsFragment = SettingsFragment()
 private var mDrawerLayout: DrawerLayout? = null
 
 private var mDatabase: DatabaseReference? = null
@@ -49,17 +52,20 @@ class MainActivity : AppCompatActivity() {
 
 
     // I think this is where you would do user oauth
-    @Override
-    public fun onAuthStateChanged(@NonNull firebaseAuth: FirebaseAuth ) {
+//    @Override
+//    public fun onAuthStateChanged(@NonNull firebaseAuth: FirebaseAuth ) {
 
+    //}
+
+    fun changeActionBarTitle(title: String) {
+        supportActionBar!!.title = title
     }
 
     private fun setNavBars() {
-        // val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        // setSupportActionBar(toolbar)
-        val actionbar = supportActionBar
-        actionbar!!.setDisplayHomeAsUpEnabled(true)
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu)
+        setSupportActionBar(findViewById(R.id.toolbar))
+        val actionbar = supportActionBar as ActionBar
+        actionbar.setDisplayHomeAsUpEnabled(false)
+
 
         mDrawerLayout = findViewById(R.id.drawer_layout)
 
@@ -69,9 +75,12 @@ class MainActivity : AppCompatActivity() {
                 navigation.menu.getItem(i).isCheckable = false
             }
 
-            item.isChecked = true
+            // item.isChecked = true
+
+            mFragmentManager!!.popBackStackImmediate()
 
             val mFragmentTransaction1 = mFragmentManager!!.beginTransaction()
+
 
             when (item.itemId) {
                 R.id.navigation_home -> {
@@ -81,12 +90,13 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.navigation_scan -> {
                     actionbar.title = "second"
-                    // put camera fragment here replace the mAccountFragment with ur camera
-                    mFragmentTransaction1.replace(R.id.fragment_container, mAccountFragment)
+                    // TODO put camera fragment here replace the mAccountFragment with ur camera
+                    mFragmentTransaction1.replace(R.id.fragment_container, mSettingsFragment)
                 }
-                R.id.navigation_account -> {
-                    actionbar.title = "third"
-                    mFragmentTransaction1.replace(R.id.fragment_container, mAccountFragment)
+                R.id.settings -> {
+                    actionbar.title = "Settings"
+
+                    mFragmentTransaction1.replace(R.id.fragment_container, mSettingsFragment)
                 }
             }
 
@@ -96,7 +106,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        val sideNavigation = findViewById<NavigationView>(R.id.side_nav)
+        val sideNavigation = findViewById<NavigationView>(R.id.nav_view)
         sideNavigation.setNavigationItemSelectedListener { item ->
             item.setChecked(true)
             mDrawerLayout!!.closeDrawers()
@@ -109,17 +119,17 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.sidebar_settings -> {
                     // actionbar.setTitle("Preferences")
-                    // mFragmentTransaction.replace(R.id.fragment_container, )
+
                 }
                 R.id.sidebar_history -> {
                     // actionbar.setTitle("History")
-                    // mFragmentTransaction.replace(R.id.fragment_container, mHistoryFragment)
+
                 }
                 R.id.sidebar_about -> {
                     // actionbar.setTitle("About")
-                    // mFragmentTransaction.replace(R.id.fragment_container, mAboutFragment)
+
                 }
-                // R.id.sidebar_signout -> AuthUI.getInstance().signOut(this).addOnCompleteListener { task -> }
+
             }
             mFragmentTransaction.commit()
             mFragmentManager!!.executePendingTransactions()

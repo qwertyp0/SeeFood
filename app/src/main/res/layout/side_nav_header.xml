@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="200dp"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimary">
+    <!-- todo CHANGE src later-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_home"
+        android:scaleType="fitCenter"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="62dp"
+        android:layout_marginLeft="10dp">
+
+
+        <TextView
+            android:id="@+id/email"
+            android:text="Email Address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="55dp"
+            android:textColor="#FFF"
+            android:textSize="20dp"/>
+
+    </LinearLayout>
+</FrameLayout>
