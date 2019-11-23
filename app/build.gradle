@@ -24,6 +24,10 @@ android {
     }
 }
 
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -41,4 +45,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.4'
     implementation 'com.firebaseui:firebase-ui-auth:4.2.1'
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

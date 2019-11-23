@@ -21,6 +21,7 @@ private var mFragmentManager: FragmentManager? = null
 private val mLoadingFragment = loadingFragment()
 private val mAccountFragment = AccountFragment()
 private val mSettingsFragment = SettingsFragment()
+private val mHomeFragment = HomeFragment()
 private var mDrawerLayout: DrawerLayout? = null
 
 private var mDatabase: DatabaseReference? = null
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         mFragmentManager = supportFragmentManager
 
         val mFragmentTransaction = mFragmentManager!!.beginTransaction()
-        mFragmentTransaction.add(R.id.fragment_container, mAccountFragment)
+        mFragmentTransaction.add(R.id.fragment_container, mHomeFragment)
         mFragmentTransaction.commit()
         mFragmentManager!!.executePendingTransactions()
     }
@@ -53,20 +54,15 @@ class MainActivity : AppCompatActivity() {
 
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener{ item ->
-            for (i in 0 until navigation.menu.size()) {
-                navigation.menu.getItem(i).isCheckable = false
-            }
-
 
             mFragmentManager!!.popBackStackImmediate()
 
             val mFragmentTransaction1 = mFragmentManager!!.beginTransaction()
 
-
             when (item.itemId) {
                 R.id.navigation_home -> {
                     actionbar.title = "Home"
-                    mFragmentTransaction1.replace(R.id.fragment_container, mAccountFragment)
+                    mFragmentTransaction1.replace(R.id.fragment_container, mHomeFragment)
                 }
 
                 R.id.navigation_scan -> {

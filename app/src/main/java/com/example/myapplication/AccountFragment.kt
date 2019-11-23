@@ -27,6 +27,8 @@ class AccountFragment : Fragment() {
     private var male: RadioButton? = null
     private var female: RadioButton? = null
 
+    private var saved: Boolean = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -74,12 +76,14 @@ class AccountFragment : Fragment() {
                                 - FEMALE_AGE_FACTOR * map.get(ageText)!!
                                 + FEMALE_BMR_CONSTANT
                 result!!.setText(femaleBMR.toInt().toString())
+                saved = true
             } else if (empty == 0 && male!!.isChecked) {
                 var maleBMR =  MALE_WEIGHT_FACTOR * map.get(weightText)!!
                                 + MALE_HEIGHT_FACTOR * map.get(heightText)!!
                                 - MALE_AGE_FACTOR * map.get(ageText)!!
                                 + MALE_BMR_CONSTANT
                 result!!.setText(maleBMR.toInt().toString())
+                saved = true
             } else if (empty == 1 && emptyEditText == heightText) {
                 Toast.makeText(context, "Enter your weight", Toast.LENGTH_LONG).show()
             } else if (empty == 1 && emptyEditText == weightText) {
@@ -95,17 +99,17 @@ class AccountFragment : Fragment() {
     }
 
     private fun saveAccount() {
-        if (result!!.text == null || result!!.text.isEmpty()) {
+        if (!saved && result!!.text.toString() == "2000") {
             Toast.makeText(context, "Calculate calories before saving.", Toast.LENGTH_LONG).show()
         } else {
             val data = HashMap<String, Int>(4)
 
-            data[HEIGHT] = Integer.parseInt(heightText!!.text.toString())
+            data[CALORIES] = Integer.parseInt(result!!.text.toString())
 
+            data[HEIGHT] = Integer.parseInt(heightText!!.text.toString())
             data[WEIGHT] = Integer.parseInt(weightText!!.text.toString())
             data[AGE] = Integer.parseInt(ageText!!.text.toString())
             data[GENDER] = if (male!!.isChecked) 1 else 0
-            data[CALORIES] = Integer.parseInt(result!!.text.toString())
 
             // put data in database here and other stuff
         }
