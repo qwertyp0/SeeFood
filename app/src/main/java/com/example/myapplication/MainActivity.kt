@@ -36,26 +36,10 @@ class MainActivity : AppCompatActivity() {
         mFragmentManager = supportFragmentManager
 
         val mFragmentTransaction = mFragmentManager!!.beginTransaction()
-        mFragmentTransaction.add(R.id.fragment_container, mLoadingFragment)
+        mFragmentTransaction.add(R.id.fragment_container, mAccountFragment)
         mFragmentTransaction.commit()
         mFragmentManager!!.executePendingTransactions()
     }
-
-    // going to need to start the firbase
-
-//    protected fun onStart() {
-//        super.onStart()
-//
-//        FirebaseAuth.getInstance()
-//        //.add
-//    }
-
-
-    // I think this is where you would do user oauth
-//    @Override
-//    public fun onAuthStateChanged(@NonNull firebaseAuth: FirebaseAuth ) {
-
-    //}
 
     fun changeActionBarTitle(title: String) {
         supportActionBar!!.title = title
@@ -67,15 +51,12 @@ class MainActivity : AppCompatActivity() {
         actionbar.setDisplayHomeAsUpEnabled(false)
 
 
-        mDrawerLayout = findViewById(R.id.drawer_layout)
-
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener{ item ->
             for (i in 0 until navigation.menu.size()) {
                 navigation.menu.getItem(i).isCheckable = false
             }
 
-            // item.isChecked = true
 
             mFragmentManager!!.popBackStackImmediate()
 
@@ -84,14 +65,14 @@ class MainActivity : AppCompatActivity() {
 
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    actionbar.title = "first"
+                    actionbar.title = "Home"
                     mFragmentTransaction1.replace(R.id.fragment_container, mAccountFragment)
                 }
 
                 R.id.navigation_scan -> {
-                    actionbar.title = "second"
-                    // TODO put camera fragment here replace the mAccountFragment with ur camera
-                    mFragmentTransaction1.replace(R.id.fragment_container, mSettingsFragment)
+
+                    // TODO start new activity here for scanner
+
                 }
                 R.id.settings -> {
                     actionbar.title = "Settings"
@@ -106,34 +87,5 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        val sideNavigation = findViewById<NavigationView>(R.id.nav_view)
-        sideNavigation.setNavigationItemSelectedListener { item ->
-            item.setChecked(true)
-            mDrawerLayout!!.closeDrawers()
-
-            for (i in 0 until navigation.menu.size()) {
-                navigation.menu.getItem(i).isCheckable = false
-            }
-
-            val mFragmentTransaction = mFragmentManager!!.beginTransaction()
-            when (item.itemId) {
-                R.id.sidebar_settings -> {
-                    // actionbar.setTitle("Preferences")
-
-                }
-                R.id.sidebar_history -> {
-                    // actionbar.setTitle("History")
-
-                }
-                R.id.sidebar_about -> {
-                    // actionbar.setTitle("About")
-
-                }
-
-            }
-            mFragmentTransaction.commit()
-            mFragmentManager!!.executePendingTransactions()
-            true
-        }
     }
 }
