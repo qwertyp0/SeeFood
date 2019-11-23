@@ -13,7 +13,6 @@
     <string name="email_label">Email\n</string>
 
 
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="height_label">Height</string>
     <string name="height_hint">Enter height in cm</string>
@@ -29,4 +28,7 @@
     <string name="intake_label">Daily Calorie Intake</string>
     <string name="save_label">Save</string>
     <string name="reset_label">Reset</string>
+    <string name="title_activity_main_entry">MainEntryActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
 </resources>
