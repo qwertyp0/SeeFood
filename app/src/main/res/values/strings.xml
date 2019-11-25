@@ -13,7 +13,18 @@
     <string name="email_label">Email\n</string>
 
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="calorie_count_label">Calorie Count</string>
+    <string name="macro_breakdown_label">Macro Breakdown</string>
+
+    <string name="total_label">grams</string>
+    <string name="percent_label">percent</string>
+
+    <string name="carbohydrates_label">carbohydrates</string>
+    <string name="protein_label">protein</string>
+    <string name="fats_label">fats</string>
+
+
+
     <string name="height_label">Height</string>
     <string name="height_hint">Enter height in cm</string>
     <string name="weight_label">Weight</string>

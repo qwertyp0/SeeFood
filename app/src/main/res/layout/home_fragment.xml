@@ -5,16 +5,254 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <com.github.mikephil.charting.charts.PieChart
+        android:layout_height="match_parent" >
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:id="@+id/calorie_pie_chart">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/calorie_chart_container">
 
-        </com.github.mikephil.charting.charts.PieChart>
-    </LinearLayout>
+            <TextView
+                android:text="@string/calorie_count_label"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:textSize="22sp"/>
 
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/calorie_pie_chart"
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
+            </com.github.mikephil.charting.charts.PieChart>
+
+            <!-- TODO insert legend for calories-->
+
+            <TextView
+                android:text="@string/macro_breakdown_label"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center" android:textColor="@android:color/black"
+                android:textStyle="bold" android:textSize="22sp"/>
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/macros_pie_chart"
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
+            </com.github.mikephil.charting.charts.PieChart>
+
+
+            <!-- Macro Legend Table Starts here -->
+
+            <LinearLayout
+                android:id="@+id/legend_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/legend_labels"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="230dp"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:id="@+id/total_label"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="@string/total_label"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/percentage_label"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="@string/percent_label"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/align"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/carbohydrate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/carbohydrate_color_block"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="25dp"
+                        android:src="@drawable/ic_square_block"
+                        android:tint="@color/carbohydrates" />
+
+                    <TextView
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:text="@string/carbohydrates_label"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/carbohydrate_total"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/carbohydrate_percent"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/protein"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="25dp"
+                        android:src="@drawable/ic_square_block"
+                        android:tint="@color/protein" />
+
+                    <TextView
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:background="@android:color/transparent"
+                        android:elevation="3dp"
+                        android:forceDarkAllowed="false"
+                        android:gravity="center_vertical"
+                        android:text="@string/protein_label"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/protein_total"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/protein_percent"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/fat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="25dp"
+                        android:src="@drawable/ic_square_block"
+                        android:tint="@color/fat" />
+
+                    <TextView
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:text="@string/fats_label"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/fat_total"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/fat_percent"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <!-- Macro Legend Table ends here -->
+
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout >
