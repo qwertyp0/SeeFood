@@ -22,6 +22,7 @@ private val mLoadingFragment = loadingFragment()
 private val mAccountFragment = AccountFragment()
 private val mSettingsFragment = SettingsFragment()
 private val mHomeFragment = HomeFragment()
+private val mFormFragment = FormFragment()
 private var mDrawerLayout: DrawerLayout? = null
 
 private var mDatabase: DatabaseReference? = null
@@ -67,7 +68,8 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.navigation_scan -> {
 
-                    // TODO start new activity here for scanner
+                    actionbar.title = "Form"
+                    mFragmentTransaction1.replace(R.id.fragment_container, mFormFragment)
 
                 }
                 R.id.settings -> {
