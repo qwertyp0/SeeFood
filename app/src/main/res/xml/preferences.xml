@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <PreferenceCategory
+        android:title="Display Options">
+        <CheckBoxPreference
+            android:key="total_fat"
+            android:title="Total Fat"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="saturated_fat"
+            android:title="Saturated Fat"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="trans_fat"
+            android:title="Trans Fat"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="cholesterol"
+            android:title="Cholesterol"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="sodium"
+            android:title="Sodium"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="potassium"
+            android:title="Potassium"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="carbohydrates"
+            android:title="Total Carbohydrates"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="fiber"
+            android:title="Fiber"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="sugar"
+            android:title="Sugar"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="protein"
+            android:title="Protein"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="vitamin_a"
+            android:title="Vitamin A"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="vitamin_b6"
+            android:title="Vitamin B6"
+            android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="vitamin_b12"
+            android:title="Vitamin B12"
+            android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="vitamin_c"
+            android:title="Vitamin C"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="vitamin_d"
+            android:title="Vitamin D"
+            android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="calcium"
+            android:title="Calcium"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="iron"
+            android:title="Iron"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="thiamin"
+            android:title="Thiamin"
+            android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="riboflavin"
+            android:title="Riboflavin"
+            android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="niacin"
+            android:title="Niacin"
+            android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="folate"
+            android:title="Folate"
+            android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="biotin"
+            android:title="Biotin"
+            android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="pantothenic_acid"
+            android:title="Pantothenic Acid"
+            android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="vitamin_k"
+            android:title="Vitamin K"
+            android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="vitanim_e"
+            android:title="Vitamin E"
+            android:defaultValue="false"/>
+    </PreferenceCategory>
+</PreferenceScreen >

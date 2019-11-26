@@ -60,17 +60,6 @@ class SettingsFragment : Fragment() {
             mFragmentTransaction.commit()
         }
 
-
-        // todo create setting fragment preference frag?
-        graphSettings!!.setOnClickListener {
-            (activity as MainActivity?)!!.changeActionBarTitle(resources.getString(R.string.graph_settings_label))
-            val mFragmentTransaction = mFragmentManager!!.beginTransaction()
-            mFragmentTransaction.hide(this)
-            mFragmentTransaction.addToBackStack("settingsFrag")
-            mFragmentTransaction.replace(android.R.id.content, mGraphSettingsFragment)
-            mFragmentTransaction.commit()
-        }
-
         // Todo create history fragment
         history!!.setOnClickListener {
             (activity as MainActivity?)!!.changeActionBarTitle(resources.getString(R.string.history_label))

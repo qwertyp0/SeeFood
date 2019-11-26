@@ -55,4 +55,5 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'androidx.preference:preference:1.1.0'
 }
