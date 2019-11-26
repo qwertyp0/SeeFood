@@ -251,8 +251,17 @@
                         android:textColor="@android:color/black" />
                 </LinearLayout>
             </LinearLayout>
+
+            <!-- Macro Legend Table ends here -->
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bar_chart">
+            </com.github.mikephil.charting.charts.HorizontalBarChart>
+
         </LinearLayout>
-        <!-- Macro Legend Table ends here -->
+
+
 
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout >
