@@ -41,7 +41,6 @@ class SettingsFragment : Fragment() {
         val view = inflater.inflate(R.layout.settings_fragment, container, false)
         mFragmentManager = fragmentManager
         account = view.findViewById(R.id.account_button)
-        graphSettings = view.findViewById(R.id.preferences_button)
         history = view.findViewById(R.id.history_button)
         about = view.findViewById(R.id.about_button)
         logout = view.findViewById(R.id.logout_button)

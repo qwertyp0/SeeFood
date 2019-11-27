@@ -90,32 +90,6 @@
         android:layout_height="1dp"
         android:background="#c0c0c0"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:src="@drawable/ic_settings" />
-
-        <Button
-            android:id="@+id/preferences_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            style="?android:attr/borderlessButtonStyle"
-            android:backgroundTint="@android:color/transparent"
-            android:gravity="center_vertical"
-            android:text="@string/graph_settings_label"
-            android:textColor="@android:color/black" />
-
-    </LinearLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_marginLeft="74dp"

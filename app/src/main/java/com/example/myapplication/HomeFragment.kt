@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 import java.text.DecimalFormat
 import java.util.ArrayList
@@ -46,6 +48,11 @@ class HomeFragment : Fragment() {
     private var mFatTotal: TextView? = null
     private var mFatPercent: TextView? = null
 
+    private var mFloatingActionButton: FloatingActionButton? = null
+    private var mFragmentManager: FragmentManager? = null
+    // TODO Remove once FAB has camera activity
+    private val mAboutFragment = AboutFragment()
+
     private var allNutritionNames: Array<String>? = arrayOf("Protein", "Sugar", "Fiber", "Carbohydrates", "Sodium", "Cholesterol", "Trans Fat", "Saturated Fat", "Total Fat")
     private val entries: ArrayList<BarEntry> = ArrayList()
 
@@ -69,6 +76,17 @@ class HomeFragment : Fragment() {
         proteinColor = getColor(context!!, R.color.protein)
         carbohydrateColor = getColor(context!!, R.color.carbohydrates)
         fatsColor = getColor(context!!, R.color.fat)
+
+        mFloatingActionButton = view.findViewById(R.id.floating_action_button)
+        mFloatingActionButton!!.setOnClickListener {
+            // TODO @YAN start camera activity here and take out this fragment transaction
+            // TODO you need to do mFragmentManager!!.popBackStackImmediate() to get ride of home fragment
+            mFragmentManager = fragmentManager
+            val mFragmentTransaction = mFragmentManager!!.beginTransaction()
+            mFragmentTransaction.replace(R.id.fragment_container, mAboutFragment)
+            mFragmentTransaction.commit()
+            mFragmentManager!!.executePendingTransactions()
+        }
 
 
         makeCaloriePieChart(mCaloriePieChart, 2000.0, 1500.0)

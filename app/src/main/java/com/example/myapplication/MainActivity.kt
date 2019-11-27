@@ -10,6 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.widget.Toolbar
 
 import com.firebase.ui.auth.AuthUI
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -23,7 +24,7 @@ private val mAccountFragment = AccountFragment()
 private val mSettingsFragment = SettingsFragment()
 private val mHomeFragment = HomeFragment()
 private val mFormFragment = FormFragment()
-private var mDrawerLayout: DrawerLayout? = null
+
 
 private var mDatabase: DatabaseReference? = null
 
@@ -52,33 +53,24 @@ class MainActivity : AppCompatActivity() {
         val actionbar = supportActionBar as ActionBar
         actionbar.setDisplayHomeAsUpEnabled(false)
 
-
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener{ item ->
-
-
-
             val mFragmentTransaction1 = mFragmentManager!!.beginTransaction()
-
             when (item.itemId) {
                 R.id.navigation_home -> {
                     mFragmentManager!!.popBackStackImmediate()
                     actionbar.title = "Home"
                     mFragmentTransaction1.replace(R.id.fragment_container, mHomeFragment)
                 }
-
                 R.id.settings -> {
                     mFragmentManager!!.popBackStackImmediate()
                     actionbar.title = "Settings"
                     mFragmentTransaction1.replace(R.id.fragment_container, mSettingsFragment)
                 }
             }
-
             mFragmentTransaction1.commit()
             mFragmentManager!!.executePendingTransactions()
-
             true
         }
-
     }
 }
