@@ -56,25 +56,25 @@ class MainActivity : AppCompatActivity() {
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener{ item ->
 
-            mFragmentManager!!.popBackStackImmediate()
+
 
             val mFragmentTransaction1 = mFragmentManager!!.beginTransaction()
 
             when (item.itemId) {
                 R.id.navigation_home -> {
+                    mFragmentManager!!.popBackStackImmediate()
                     actionbar.title = "Home"
                     mFragmentTransaction1.replace(R.id.fragment_container, mHomeFragment)
                 }
 
                 R.id.navigation_scan -> {
-
+                    mFragmentManager!!.popBackStackImmediate()
                     actionbar.title = "Form"
                     mFragmentTransaction1.replace(R.id.fragment_container, mFormFragment)
-
                 }
                 R.id.settings -> {
+                    mFragmentManager!!.popBackStackImmediate()
                     actionbar.title = "Settings"
-
                     mFragmentTransaction1.replace(R.id.fragment_container, mSettingsFragment)
                 }
             }

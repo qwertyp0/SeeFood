@@ -43,14 +43,13 @@
                 android:textAlignment="center" android:textColor="@android:color/black"
                 android:textStyle="bold" android:textSize="22sp"/>
 
+
+            <!-- Macro Legend Table Starts here -->
+
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/macros_pie_chart"
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
-            </com.github.mikephil.charting.charts.PieChart>
-
-
-            <!-- Macro Legend Table Starts here -->
+                android:layout_height="250dp"></com.github.mikephil.charting.charts.PieChart>
 
             <LinearLayout
                 android:id="@+id/legend_header"
@@ -252,6 +251,17 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <TextView
+                android:text="@string/total_breakdown_label"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:textSize="22sp"/>
+
             <!-- Macro Legend Table ends here -->
             <com.github.mikephil.charting.charts.HorizontalBarChart
                 android:layout_width="match_parent"
@@ -260,8 +270,5 @@
             </com.github.mikephil.charting.charts.HorizontalBarChart>
 
         </LinearLayout>
-
-
-
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout >

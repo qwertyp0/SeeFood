@@ -33,8 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:elevation="5dp"
-            app:menu="@menu/navigation"
-            android:theme="@style/Theme.MaterialComponents.Light"/>
+            app:menu="@menu/navigation" />
 
     </RelativeLayout>
 

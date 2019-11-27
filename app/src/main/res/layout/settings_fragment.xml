@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="15dp"
@@ -72,12 +71,12 @@
 
         <Button
             android:id="@+id/account_button"
-            style="@style/Widget.AppCompat.Button.Colored"
+            android:shadowColor="@color/fui_transparent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:background="@android:color/transparent"
-            android:elevation="3dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:backgroundTint="@android:color/transparent"
             android:forceDarkAllowed="false"
             android:gravity="center_vertical"
             android:text="@string/account_label"
@@ -106,12 +105,11 @@
 
         <Button
             android:id="@+id/preferences_button"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:background="@android:color/transparent"
-            android:elevation="3dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:backgroundTint="@android:color/transparent"
             android:gravity="center_vertical"
             android:text="@string/graph_settings_label"
             android:textColor="@android:color/black" />
@@ -139,12 +137,11 @@
 
         <Button
             android:id="@+id/history_button"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:background="@android:color/transparent"
-            android:elevation="3dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:backgroundTint="@android:color/transparent"
             android:gravity="center_vertical"
             android:text="@string/history_label"
             android:textColor="@android:color/black" />
@@ -172,12 +169,11 @@
 
         <Button
             android:id="@+id/about_button"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:background="@android:color/transparent"
-            android:elevation="3dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:backgroundTint="@android:color/transparent"
             android:gravity="center_vertical"
             android:text="@string/about_label"
             android:textColor="@android:color/black" />
@@ -206,12 +202,11 @@
 
         <Button
             android:id="@+id/logout_button"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:background="@android:color/transparent"
-            android:elevation="3dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:backgroundTint="@android:color/transparent"
             android:gravity="center_vertical"
             android:text="@string/logout_label"
             android:textColor="@android:color/black" />
