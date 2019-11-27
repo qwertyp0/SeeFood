@@ -6,10 +6,10 @@
         android:icon="@drawable/ic_home"
         android:title="@string/title_home" />
 
-    <item
-        android:id="@+id/navigation_scan"
-        android:icon="@drawable/ic_center_focus_weak"
-        android:title="@string/title_scan" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_scan"-->
+<!--        android:icon="@drawable/ic_center_focus_weak"-->
+<!--        android:title="@string/title_scan" />-->
 
     <item
         android:id="@+id/settings"

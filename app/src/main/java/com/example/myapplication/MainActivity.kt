@@ -67,11 +67,6 @@ class MainActivity : AppCompatActivity() {
                     mFragmentTransaction1.replace(R.id.fragment_container, mHomeFragment)
                 }
 
-                R.id.navigation_scan -> {
-                    mFragmentManager!!.popBackStackImmediate()
-                    actionbar.title = "Form"
-                    mFragmentTransaction1.replace(R.id.fragment_container, mFormFragment)
-                }
                 R.id.settings -> {
                     mFragmentManager!!.popBackStackImmediate()
                     actionbar.title = "Settings"
