@@ -93,14 +93,15 @@ class AccountFragment : Fragment() {
             } else {
                 Toast.makeText(context, "Enter your Information", Toast.LENGTH_LONG).show()
             }
-            // put data in database here and other stuff
         }
         return view
     }
 
     private fun saveAccount() {
-        if (!saved && result!!.text.toString() == "2000") {
+        if (!saved) {
             Toast.makeText(context, "Calculate calories before saving.", Toast.LENGTH_LONG).show()
+        } else if (heightText!!.text.isEmpty() || weightText!!.text.isEmpty() || ageText!!.text.isEmpty()){
+            Toast.makeText(context, "Fields are missing", Toast.LENGTH_LONG).show()
         } else {
             val data = HashMap<String, Int>(4)
 
@@ -111,7 +112,7 @@ class AccountFragment : Fragment() {
             data[AGE] = Integer.parseInt(ageText!!.text.toString())
             data[GENDER] = if (male!!.isChecked) 1 else 0
 
-            // put data in database here and other stuff
+            // TODO put data in database here and other stuff
         }
     }
 
