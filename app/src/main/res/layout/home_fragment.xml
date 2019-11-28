@@ -66,9 +66,16 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Space
+                    <TextView
+                        android:id="@+id/legend_label"
+                        style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="230dp"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:textSize="9pt"
+                        android:text="Legend"
+                        android:textColor="@android:color/black" />
 
                     <TextView
                         android:id="@+id/total_label"

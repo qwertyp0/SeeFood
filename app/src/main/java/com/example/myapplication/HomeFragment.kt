@@ -88,7 +88,6 @@ class HomeFragment : Fragment() {
             mFragmentManager!!.executePendingTransactions()
         }
 
-
         makeCaloriePieChart(mCaloriePieChart, 2000.0, 1500.0)
         makeMacroPieChart(mMacroPieChart, 15.0, 20.0, 30.0)
         makeMacroLegendTable(15.0, 20.0, 30.0)
@@ -203,11 +202,11 @@ class HomeFragment : Fragment() {
         pieChart.setEntryLabelColor(Color.rgb(0, 0, 0))
 
         val pieDataSet = PieDataSet(pieData, "")
-
         pieDataSet.setDrawValues(false)
         pieDataSet.setColors(carbohydrateColor!!, fatsColor!!, proteinColor!!)
 
         pieChart.data = PieData(pieDataSet)
+        pieChart.animateY(1000)
 
         return pieChart
     }
@@ -250,7 +249,7 @@ class HomeFragment : Fragment() {
         }
 
         pieChart.data = PieData(pieDataSet)
-
+        pieChart.animateY(1000)
         return pieChart
     }
 
