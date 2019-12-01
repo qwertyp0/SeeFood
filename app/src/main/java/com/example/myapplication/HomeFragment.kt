@@ -34,6 +34,8 @@ class HomeFragment : Fragment() {
     private var carbohydrateColor: Int? = null
     private var fatsColor: Int? = null
 
+    private var barGraphColor: Int? = null;
+
 
     private var mCaloriePieChart: PieChart? = null
     private var mMacroPieChart: PieChart? = null
@@ -77,6 +79,8 @@ class HomeFragment : Fragment() {
         carbohydrateColor = getColor(context!!, R.color.carbohydrates)
         fatsColor = getColor(context!!, R.color.fat)
 
+        barGraphColor = getColor(context!!, R.color.barGraph)
+
         mFloatingActionButton = view.findViewById(R.id.floating_action_button)
         mFloatingActionButton!!.setOnClickListener {
             // TODO @YAN start camera activity here and take out this fragment transaction
@@ -106,9 +110,7 @@ class HomeFragment : Fragment() {
         mBarChart!!.layoutParams.height = 200 * 10
 
         val barDataSet = BarDataSet(entries, "")
-        // TODO change color later by creating own class
-        // TODO look at https://stackoverflow.com/questions/29888850/mpandroidchart-set-different-color-to-bar-in-a-bar-chart-based-on-y-axis-values
-        barDataSet.setColors(green, red)
+        barDataSet.setColors(barGraphColor!!)
         barDataSet.valueTextSize = 15f
         barDataSet.isHighlightEnabled = false
         barDataSet.axisDependency = YAxis.AxisDependency.RIGHT

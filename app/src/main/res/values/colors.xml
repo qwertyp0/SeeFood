@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3b91d7</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryDark">#005acf</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="protein">#d50000</color>
-    <color name="carbohydrates">#38cc00</color>
-    <color name="fat">#e6e91a</color>
+    <color name="protein">#c05640</color>
+    <color name="carbohydrates">#1ecfd6</color>
+    <color name="fat">#edd170</color>
+
+    <color name="barGraph">#003d73</color>
+
 </resources>
