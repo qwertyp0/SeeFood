@@ -295,8 +295,6 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:textColor="@android:color/black" />
-
-
         </LinearLayout>
     </ScrollView>
 
