@@ -23,16 +23,12 @@ import java.util.ArrayList
 
 class HomeFragment : Fragment() {
 
-    // TODO add in colors in REs color folder
-
-    private var green = Color.rgb(5, 205, 110) //Green
-    private var yellow = Color.rgb(254, 158, 15)
-    private var light_gray = Color.rgb(220, 220, 220) //Light Gray
-    private var red = Color.rgb(223, 61, 61) //Red
-
     private var proteinColor: Int? = null
     private var carbohydrateColor: Int? = null
     private var fatsColor: Int? = null
+
+    private var caloriesConsumed: Int? = null
+    private var caloriesAvailable: Int? = null
 
     private var barGraphColor: Int? = null;
 
@@ -52,6 +48,7 @@ class HomeFragment : Fragment() {
 
     private var mFloatingActionButton: FloatingActionButton? = null
     private var mFragmentManager: FragmentManager? = null
+
     // TODO Remove once FAB has camera activity
     private val mAboutFragment = AboutFragment()
 
@@ -78,6 +75,9 @@ class HomeFragment : Fragment() {
         proteinColor = getColor(context!!, R.color.protein)
         carbohydrateColor = getColor(context!!, R.color.carbohydrates)
         fatsColor = getColor(context!!, R.color.fat)
+
+        caloriesConsumed = getColor(context!!, R.color.caloriesConsumed)
+        caloriesAvailable = getColor(context!!, R.color.caloriesAvailable)
 
         barGraphColor = getColor(context!!, R.color.barGraph)
 
@@ -227,7 +227,6 @@ class HomeFragment : Fragment() {
         pieChart.description = null
         pieChart.isRotationEnabled = false
 
-        // TODO Change Label and colors
         var pieData = ArrayList<PieEntry>()
         if (totalCaloriesConsumed > totalCaloriesAvailable) {
             pieData.add(PieEntry((totalCaloriesConsumed / totalCaloriesAvailable).toFloat() * 100f, "Calories Consumed (Exceeded)"))
@@ -243,11 +242,10 @@ class HomeFragment : Fragment() {
 
         pieDataSet.setDrawValues(false)
 
-        // TODO change colors later
         if (totalCaloriesConsumed > totalCaloriesAvailable) {
-            pieDataSet.setColors(red)
+            pieDataSet.setColors(caloriesConsumed!!)
         } else {
-            pieDataSet.setColors(red, green)
+            pieDataSet.setColors(caloriesConsumed!!, caloriesAvailable!!)
         }
 
         pieChart.data = PieData(pieDataSet)
@@ -257,7 +255,6 @@ class HomeFragment : Fragment() {
 
     private inner class MyXAxisValueFormatter : ValueFormatter() {
         override fun getFormattedValue(value: Float): String {
-            // Simple version. You should use a DateFormatter to specify how you want to textually represent your date.
             return allNutritionNames!![value.toInt()]
         }
     }

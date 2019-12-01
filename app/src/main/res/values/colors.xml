@@ -10,4 +10,8 @@
 
     <color name="barGraph">#003d73</color>
 
+    <color name="caloriesConsumed">#fc6560</color>
+    <color name="caloriesAvailable">#2deb2a</color>
+
+
 </resources>
