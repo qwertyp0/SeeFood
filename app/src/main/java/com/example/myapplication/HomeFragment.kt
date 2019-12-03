@@ -210,9 +210,11 @@ class HomeFragment : Fragment() {
     private fun makeBarGraph() {
         entries = ArrayList<BarEntry>()
         addInitialEntries()
+        var date = mDateView!!.text.toString()
         mDatabaseReference?.child(userId.toString())?.addListenerForSingleValueEvent(object:ValueEventListener {
+
             override fun onDataChange(data: DataSnapshot) {
-                var date = mDateView!!.text.toString()
+
                 var totalTransFat = 0.0
                 var totalProtein = 0.0
                 var totalCarbs = 0.0
