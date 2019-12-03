@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import com.google.firebase.auth.FirebaseAuth
 
 class MainEntryActivity : AppCompatActivity() {
 
@@ -13,6 +14,13 @@ class MainEntryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_entry)
+
+        // if user has logged in, auto login
+        val auth = FirebaseAuth.getInstance()
+        if (auth.currentUser != null) {
+            startActivity(Intent(this@MainEntryActivity, MainActivity::class.java))
+            this.finish()
+        }
 
         initializeViews()
 
