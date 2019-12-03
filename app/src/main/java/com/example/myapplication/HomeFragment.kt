@@ -120,6 +120,8 @@ class HomeFragment : Fragment() {
                 cal?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 updateDateInView()
                 fillCharts(userId.toString(),mDateView!!.text.toString())
+
+                //fillCharts(userId.toString(),mDateView!!.text.toString())
             }
         }
         mDateView!!.setOnClickListener(object : View.OnClickListener {
@@ -130,7 +132,7 @@ class HomeFragment : Fragment() {
                     cal!!.get(Calendar.YEAR),
                     cal!!.get(Calendar.MONTH),
                     cal!!.get(Calendar.DAY_OF_MONTH)).show()
-                fillCharts(userId.toString(),mDateView!!.text.toString())
+
             }
 
         })
@@ -149,9 +151,8 @@ class HomeFragment : Fragment() {
             // mFragmentManager!!.popBackStackImmediate()
         }
 
-        makeCaloriePieChart(mCaloriePieChart, 2000.0, 1500.0)
-        makeMacroPieChart(mMacroPieChart, 15.0, 20.0, 30.0)
-        makeMacroLegendTable(15.0, 20.0, 30.0)
+
+        fillCharts(userId.toString(),mDateView!!.text.toString())
         makeBarGraph()
 
         return view
@@ -166,37 +167,39 @@ class HomeFragment : Fragment() {
             var map: MutableMap<String, Any?> = mutableMapOf()
             var dailyscans =  arrayListOf<NutritionLabel>()
             var date = mDateView!!.text.toString()
-            mDatabaseReference?.child(userId.toString())?.addListenerForSingleValueEvent(object:ValueEventListener {
+            mDatabaseReference?.child(userId.toString())?.child("daily_scans")?.addListenerForSingleValueEvent(object:ValueEventListener {
                 override fun onDataChange(data: DataSnapshot) {
-                    if (data.hasChild(mDateView!!.text.toString())) {
-
-                        if (data.hasChild(date)) {
-                            Log.i("SHOWING DATA", "Showing dates foods: " + data?.child(date).value)
+                    //if there is already items in daily_scans
+                    if (data.hasChild(date)) {
+                        Log.i("SHOWING DATA", "Showing dates foods: " + data?.child(date).value)
                             var foodItems = data?.child(date).value as ArrayList<NutritionLabel>
 
                             if (nutritionLabel != null) {
                                 foodItems.add(nutritionLabel)
                             }
                             map.put(date, foodItems)
-                            mDatabaseReference?.child(userId.toString())?.setValue(map)
+                            mDatabaseReference?.child(userId.toString())?.child("daily_scans")?.setValue(map)
 
-                        } else {
+                    } else {
                             if (nutritionLabel != null) {
                                 dailyscans.add(nutritionLabel)
                             }
                             map.put(date, dailyscans)
-                            mDatabaseReference?.child(userId.toString())?.setValue(map)
+                            mDatabaseReference?.child(userId.toString())?.child("daily_scans")?.setValue(map)
 
-                        }
                     }
+                    fillCharts(userId.toString(),date)
+
+
                 }
                     override fun onCancelled(data: DatabaseError) {
                         Log.i("Hello","data cancelled")
                     }
             })
+
         }
         else
-            Log.d("result", "failed")
+            Log.d("result", "failed, RequestCode = " + requestCode + ", resultcode=" + resultCode)
     }
 
     private fun makeBarGraph() {
@@ -370,7 +373,7 @@ class HomeFragment : Fragment() {
         mDateView!!.text = sdf.format(cal!!.time)
     }
     private fun fillCharts(userId: String, date:String) {
-        mDatabaseReference?.child(userId)?.addValueEventListener(object: ValueEventListener {
+        mDatabaseReference?.child(userId)?.addListenerForSingleValueEvent(object: ValueEventListener {
             //
             override fun onDataChange(data: DataSnapshot) {
                 var caloriesConsumed = 0.0
@@ -380,24 +383,36 @@ class HomeFragment : Fragment() {
                 var totalServings = 0.0
                 var totalCaloriesAvailable = 0.0
 
-                if (data.hasChild(date)) {
-                    data.children.forEachIndexed { index, _ ->
-                        totalServings = data?.child(date)?.child(index.toString())?.child("servings")
-                            .value.toString().toDouble()
-                        totalProtein += (totalServings) * data?.child(date)?.child(index.toString())?.child("totalProtein")
-                            .value.toString().toDouble()
-                        totalCarbs += (totalServings) * data?.child(date)?.child(index.toString())?.child("totalCarbohydrate")
-                            .value.toString().toDouble()
-                        totalFats += (totalServings) * data?.child(date)?.child(index.toString())?.child("totalFat")
-                            .value.toString().toDouble()
-                        caloriesConsumed +=(totalServings) * data?.child(index.toString())?.child("calories")
-                            .value.toString().toDouble()
-                        totalCaloriesAvailable = data?.child("account_settings")?.child("calories")
-                            .value.toString().toDouble()
+                if (data.hasChild("daily_scans")) {
+
+                    if (data?.child("daily_scans")?.hasChild(date)) {
+                        data?.child("daily_scans")?.child(date)?.children.forEachIndexed { index, _ ->
+                            totalServings = data?.child("daily_scans")?.child(date)?.child(index.toString())?.child("servings")
+                                .value.toString().toDouble()
+                            totalProtein += (totalServings) * data?.child("daily_scans")?.child(date)?.child(index.toString())?.child("protein")
+                                .value.toString().toDouble()
+                            totalCarbs += (totalServings) * data?.child("daily_scans")?.child(date)?.child(index.toString())?.child("totalCarb")
+                                .value.toString().toDouble()
+                            totalFats += (totalServings) * data?.child("daily_scans")?.child(date)?.child(index.toString())?.child("totalFat")
+                                .value.toString().toDouble()
+                            caloriesConsumed +=(totalServings) * data?.child("daily_scans")?.child(date)?.child(index.toString())?.child("calories")
+                                .value.toString().toDouble()
+
+                        }
                     }
-                    makeCaloriePieChart(mCaloriePieChart, totalCaloriesAvailable, caloriesConsumed)
+                    if (data.hasChild("account_settings")){
+                        totalCaloriesAvailable =data?.child("account_settings")?.child("calories").value.toString().toDouble()
+                        makeCaloriePieChart(mCaloriePieChart, totalCaloriesAvailable, caloriesConsumed)
+                    }
+
                     makeMacroPieChart(mMacroPieChart, totalCarbs, totalFats, totalProtein)
                     makeMacroLegendTable(totalCarbs, totalFats, totalProtein)
+                }
+
+                else {
+                    makeCaloriePieChart(mCaloriePieChart, 2000.0, 0.0)
+                    makeMacroPieChart(mMacroPieChart, 0.0, 0.0, 0.0)
+                    makeMacroLegendTable(0.0, 0.0, 0.0)
                 }
 
             }
