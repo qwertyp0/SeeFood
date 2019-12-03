@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialAutoCompleteTextView
@@ -22,10 +20,10 @@ import java.util.*
 
 class FormFragment : Fragment() {
 
-    private var uiModel : UIModel? = null
-    private lateinit var formView : View
-    private var currNutritionLabel : NutritionLabel? = null
-    private var exists : Boolean ? = false
+    private var uiModel: UIModel? = null
+    private lateinit var formView: View
+    private var currNutritionLabel: NutritionLabel? = null
+    private var exists: Boolean ? = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,7 +59,7 @@ class FormFragment : Fragment() {
         }
 
         // set dropdown menu for meals
-        val mealAdapter = ArrayAdapter<String>(context!!, R.layout.dropdown_menu,
+    val mealAdapter = ArrayAdapter<String>(context!!, R.layout.dropdown_menu,
             arrayOf("Breakfast", "Lunch", "Dinner", "Snack"))
         formView.findViewById<MaterialAutoCompleteTextView>(R.id.input_meal)
             .setAdapter(mealAdapter)
@@ -71,7 +69,7 @@ class FormFragment : Fragment() {
         }
 
         uiModel?.nutritionLabelExists?.observeForever {
-            Log.d("FORM", "${it} ${currNutritionLabel!=null}")
+            Log.d("FORM", "$it ${currNutritionLabel != null}")
             exists = it
             if (it)
                 setFields(currNutritionLabel)
@@ -136,11 +134,11 @@ class FormFragment : Fragment() {
             setFields(currNutritionLabel)
     }
 
-    fun newLabel() : NutritionLabel? {
+    fun newLabel(): NutritionLabel? {
         try {
-            val date : Date = SimpleDateFormat("EEE, MMM d, yyyy").parse(
+            val date: Date = SimpleDateFormat("EEE, MMM d, yyyy").parse(
                 formView.findViewById<TextInputEditText>(R.id.input_date).text!!.toString())
-            val meal : Meal = Meal.valueOf(
+            val meal: Meal = Meal.valueOf(
                 formView.findViewById<MaterialAutoCompleteTextView>(R.id.input_meal).text!!.toString().toUpperCase())
             val productName = formView.findViewById<TextInputEditText>(R.id.input_name).text!!.toString()
             val calories = formView.findViewById<TextInputEditText>(R.id.input_calories).text!!.toString().toInt()
@@ -157,7 +155,7 @@ class FormFragment : Fragment() {
 
             return NutritionLabel(date, meal, productName, calories, servings, totalFat, transFat,
                 satFat, cholesterol, sodium, totalCarb, fiber, sugar, protein)
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             Log.d("FORMERROR", e.toString())
             return null
         }
