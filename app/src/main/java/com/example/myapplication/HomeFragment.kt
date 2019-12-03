@@ -168,10 +168,8 @@ class HomeFragment : Fragment() {
             var date = mDateView!!.text.toString()
             mDatabaseReference?.child(userId.toString())?.addListenerForSingleValueEvent(object:ValueEventListener {
                 override fun onDataChange(data: DataSnapshot) {
-                    if (data.hasChild(mDateView!!.text.toString())) {
-
-                        if (data.hasChild(date)) {
-                            Log.i("SHOWING DATA", "Showing dates foods: " + data?.child(date).value)
+                    if (data.hasChild(date)) {
+                        Log.i("SHOWING DATA", "Showing dates foods: " + data?.child(date).value)
                             var foodItems = data?.child(date).value as ArrayList<NutritionLabel>
 
                             if (nutritionLabel != null) {
@@ -180,15 +178,15 @@ class HomeFragment : Fragment() {
                             map.put(date, foodItems)
                             mDatabaseReference?.child(userId.toString())?.setValue(map)
 
-                        } else {
+                    } else {
                             if (nutritionLabel != null) {
                                 dailyscans.add(nutritionLabel)
                             }
                             map.put(date, dailyscans)
                             mDatabaseReference?.child(userId.toString())?.setValue(map)
 
-                        }
                     }
+
                 }
                     override fun onCancelled(data: DatabaseError) {
                         Log.i("Hello","data cancelled")
