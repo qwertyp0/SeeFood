@@ -64,7 +64,7 @@ class HomeFragment : Fragment() {
     private val mAboutFragment = AboutFragment()
 
     private var allNutritionNames: Array<String>? = arrayOf("Protein", "Sugar", "Fiber", "Carbohydrates", "Sodium", "Cholesterol", "Trans Fat", "Saturated Fat", "Total Fat")
-    private val entries: ArrayList<BarEntry> = ArrayList()
+    private var entries: ArrayList<BarEntry> = ArrayList()
 
 
     private var mDatabaseReference: DatabaseReference? = null
@@ -208,8 +208,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun makeBarGraph() {
+        entries = ArrayList<BarEntry>()
         addInitialEntries()
-
         mDatabaseReference?.child(userId.toString())?.addListenerForSingleValueEvent(object:ValueEventListener {
             override fun onDataChange(data: DataSnapshot) {
                 var date = mDateView!!.text.toString()
@@ -294,8 +294,25 @@ class HomeFragment : Fragment() {
                         changeEntry("Sugar", 0.0f)
                         changeEntry("Protein", 0.0f)
                     }
-                }
 
+                    setUpBarGraphDisplay()
+                    setUpAxes()
+
+                    mBarChart!!.layoutParams.height = 200 * 10
+
+                    val barDataSet = BarDataSet(entries, "")
+                    barDataSet.setColors(barGraphColor!!)
+                    barDataSet.valueTextSize = 15f
+                    barDataSet.isHighlightEnabled = false
+                    barDataSet.axisDependency = YAxis.AxisDependency.RIGHT
+
+                    val data = BarData(barDataSet)
+                    data.barWidth = 0.75f // Width of Bars
+                    mBarChart!!.data = (data)
+
+                    mBarChart!!.xAxis.labelCount = entries.size
+                    mBarChart!!.invalidate()
+                }
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -304,10 +321,6 @@ class HomeFragment : Fragment() {
         })
         setUpBarGraphDisplay()
         setUpAxes()
-
-
-
-
 
         mBarChart!!.layoutParams.height = 200 * 10
 
@@ -330,7 +343,7 @@ class HomeFragment : Fragment() {
 
     private fun addInitialEntries() {
         for (i in allNutritionNames!!.indices) {
-            entries.add(BarEntry(i.toFloat(), floatArrayOf(0f, i.toFloat() * 100)))
+            entries.add(BarEntry(i.toFloat(), floatArrayOf(0f, 0f)))
         }
     }
 
