@@ -13,5 +13,5 @@
     <color name="caloriesConsumed">#fc6560</color>
     <color name="caloriesAvailable">#2deb2a</color>
 
-
+    <color name="white">#FFFFFF</color>
 </resources>

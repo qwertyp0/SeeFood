@@ -25,7 +25,6 @@
     <string name="fats_label">fats</string>
 
 
-
     <string name="height_label">Height</string>
     <string name="height_hint">Enter height in cm</string>
     <string name="weight_label">Weight</string>

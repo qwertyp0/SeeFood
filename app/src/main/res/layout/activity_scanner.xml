@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScannerActivity">
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/app_bar">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/app_name"
+            android:id="@+id/tool_bar"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        layout="@layout/layout_appbar"
+        android:id="@+id/gradient_appbar"/>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/bottom_chip"
+        style="@style/Widget.MaterialComponents.Chip.Entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:checkable="false"
+        android:clickable="false"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/white"
+        app:chipCornerRadius="28dp"
+        android:padding="8dp"
+        android:text="some text"
+        android:textSize="10dp"
+        app:chipSurfaceColor="#1f1f1f"
+        app:closeIconVisible="false"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        app:icon="@drawable/ic_add_black_24dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:visibility="gone"
+        android:id="@+id/extended_fab"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

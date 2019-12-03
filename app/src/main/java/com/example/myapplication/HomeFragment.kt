@@ -1,7 +1,10 @@
 package com.example.myapplication
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,11 +88,14 @@ class HomeFragment : Fragment() {
         mFloatingActionButton!!.setOnClickListener {
             // TODO @YAN start camera activity here and take out this fragment transaction
             // TODO you need to do mFragmentManager!!.popBackStackImmediate() to get ride of home fragment
-            mFragmentManager = fragmentManager
-            val mFragmentTransaction = mFragmentManager!!.beginTransaction()
-            mFragmentTransaction.replace(R.id.fragment_container, mAboutFragment)
-            mFragmentTransaction.commit()
-            mFragmentManager!!.executePendingTransactions()
+//            mFragmentManager = fragmentManager
+//            val mFragmentTransaction = mFragmentManager!!.beginTransaction()
+//            mFragmentTransaction.replace(R.id.fragment_container, mAboutFragment)
+//            mFragmentTransaction.commit()
+//            mFragmentManager!!.executePendingTransactions()
+            var intent = Intent(context, ScannerActivity::class.java)
+            startActivityForResult(intent, 1)
+            // mFragmentManager!!.popBackStackImmediate()
         }
 
         makeCaloriePieChart(mCaloriePieChart, 2000.0, 1500.0)
@@ -99,6 +105,16 @@ class HomeFragment : Fragment() {
 
         return view
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            val nutritionLabel : NutritionLabel? =
+                data?.getParcelableExtra<NutritionLabel>("result")
+            // TODO: Abib upload the nutrtion label to firebase if not null
+        }
+        else
+            Log.d("result", "failed")
     }
 
     private fun makeBarGraph() {

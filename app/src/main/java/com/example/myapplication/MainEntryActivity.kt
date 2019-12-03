@@ -23,6 +23,7 @@ class MainEntryActivity : AppCompatActivity() {
         loginBtn!!.setOnClickListener {
             val intent = Intent(this@MainEntryActivity, LoginActivity::class.java)
             startActivity(intent)
+            this.finish()
         }
     }
 

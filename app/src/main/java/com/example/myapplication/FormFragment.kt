@@ -1,103 +1,169 @@
 package com.example.myapplication
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.button.MaterialButton
+import android.widget.ArrayAdapter
+import android.widget.TextView
+import androidx.annotation.MainThread
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-
-private const val REQUEST_CODE = 1
-
+import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.textview.MaterialAutoCompleteTextView
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class FormFragment : Fragment() {
 
-    private lateinit var inflatedView : View
-    private lateinit var product : TextInputEditText
-    private lateinit var servings : TextInputEditText
-    private lateinit var calories : TextInputEditText
-    private lateinit var totalFat : TextInputEditText
-    private lateinit var cholesterol : TextInputEditText
-    private lateinit var sodium : TextInputEditText
-    private lateinit var totalCarbohydrate : TextInputEditText
-    private lateinit var protein : TextInputEditText
+    private var uiModel : UIModel? = null
+    private lateinit var formView : View
+    private var currNutritionLabel : NutritionLabel? = null
+    private var exists : Boolean ? = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        inflatedView = inflater.inflate(R.layout.form_fragment, container, false)
-        product = inflatedView.findViewById(R.id.product)
-        servings = inflatedView.findViewById(R.id.servings)
-        calories = inflatedView.findViewById(R.id.calories)
-        totalFat = inflatedView.findViewById(R.id.total_fat)
-        cholesterol = inflatedView.findViewById(R.id.cholesterol)
-        sodium = inflatedView.findViewById(R.id.sodium)
-        totalCarbohydrate = inflatedView.findViewById(R.id.total_carbohydrate)
-        protein = inflatedView.findViewById(R.id.protein)
+        formView = inflater.inflate(R.layout.fragment_form, container, false)
+        uiModel = ViewModelProviders.of(activity!!).get(UIModel::class.java)
 
-        val scanButton = inflatedView.findViewById<MaterialButton>(R.id.scan_button)
-        scanButton.setOnClickListener {
-            // TODO: finish up scanner
-            /*
-            val intent = Intent(this.activity, ScannerActivity::class.java)
-            val nutritionLabel : NutritionLabel? = null
-            intent.putExtra("NutritionLabel", nutritionLabel)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivityForResult(intent, REQUEST_CODE)
-             */
+        // set up appbar
+        val appBar = formView.findViewById<MaterialToolbar>(R.id.tool_bar_in_frag)
+        appBar.setNavigationIcon(R.drawable.ic_close_black_24dp)
+        appBar.setNavigationOnClickListener { activity!!.finish() }
+        appBar.setOnClickListener(activity as ScannerActivity)
+        val toolBar = formView.findViewById<MaterialToolbar>(R.id.tool_bar_in_frag)
+        toolBar.inflateMenu(R.menu.form_toolbar_menu)
+        toolBar.setOnMenuItemClickListener {
+            when (it.title) {
+                "clear" -> uiModel?.setNutritionLabelExists(false)
+                "camera" -> uiModel?.setUIState(UIState.BARCODE)
+            }
+            super.onOptionsItemSelected(it)
         }
 
-        val saveButton = inflatedView.findViewById<MaterialButton>(R.id.save_button)
-        saveButton.setOnClickListener {
-            // TODO: firebase upload result to database
-            /*
-            make sure text is not empty and not null and then construct result
-            val result = NutritionLabel(
-                product!!.text.toString(),
-                servings!!.text.toString().toDouble(),
-                calories!!.text.toString().toInt(),
-                totalFat!!.text.toString().toInt(),
-                cholesterol!!.text.toString().toInt(),
-                sodium!!.text.toString().toInt(),
-                totalCarbohydrate!!.text.toString().toInt(),
-                protein!!.text.toString().toInt()
-            )
-            */
-
-            product.text?.clear()
-            servings.text?.clear()
-            calories.text?.clear()
-            totalFat.text?.clear()
-            cholesterol.text?.clear()
-            sodium.text?.clear()
-            totalCarbohydrate.text?.clear()
-            protein.text?.clear()
+        formView.findViewById<TextInputLayout>(R.id.input_date_layout).apply {
+            setEndIconDrawable(R.drawable.ic_today_24dp)
+            isEndIconVisible = true
+            setEndIconOnClickListener {
+                formView.findViewById<TextInputEditText>(R.id.input_date).setText(
+                    LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+                )
+            }
         }
 
-        return inflatedView
+        // set dropdown menu for meals
+        val mealAdapter = ArrayAdapter<String>(context!!, R.layout.dropdown_menu,
+            arrayOf("Breakfast", "Lunch", "Dinner", "Snacks"))
+        formView.findViewById<MaterialAutoCompleteTextView>(R.id.input_meal)
+            .setAdapter(mealAdapter)
+
+        uiModel?.nutritionLabel?.observeForever {
+            currNutritionLabel = it
+        }
+
+        uiModel?.nutritionLabelExists?.observeForever {
+            Log.d("FORM", "${it} ${currNutritionLabel!=null}")
+            exists = it
+            if (it)
+                setFields(currNutritionLabel)
+            else
+                setFields(null)
+        }
+
+        return formView
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-
-            val nutritionLabel : NutritionLabel? = data?.extras?.getParcelable("NutritionLabel")
-
-            product.setText(nutritionLabel?.product)
-            servings.setText(nutritionLabel?.servings.toString())
-            calories.setText(nutritionLabel?.calories.toString())
-            totalFat.setText(nutritionLabel?.totalFat.toString())
-            cholesterol.setText(nutritionLabel?.cholesterol.toString())
-            sodium.setText(nutritionLabel?.sodium.toString())
-            totalCarbohydrate.setText(nutritionLabel?.totalCarbohydrate.toString())
-            protein.setText(nutritionLabel?.protein.toString())
+    private fun setFields(nutritionLabel: NutritionLabel?) {
+        if (nutritionLabel != null) {
+            Log.d("FORM", "setting")
+            formView.findViewById<TextInputEditText>(R.id.input_calories)
+                .setText(nutritionLabel?.calories.toString(), TextView.BufferType.EDITABLE)
+            formView.findViewById<TextInputEditText>(R.id.input_total_fat)
+                .setText(nutritionLabel?.totalFat.toString(), TextView.BufferType.EDITABLE)
+            formView.findViewById<TextInputEditText>(R.id.input_trans_fat)
+                .setText(nutritionLabel?.transFat.toString(), TextView.BufferType.EDITABLE)
+            formView.findViewById<TextInputEditText>(R.id.input_saturated_fat)
+                .setText(nutritionLabel?.saturatedFat.toString(), TextView.BufferType.EDITABLE)
+            formView.findViewById<TextInputEditText>(R.id.input_cholesterol)
+                .setText(nutritionLabel?.cholesterol.toString(), TextView.BufferType.EDITABLE)
+            formView.findViewById<TextInputEditText>(R.id.input_sodium)
+                .setText(nutritionLabel?.sodium.toString(), TextView.BufferType.EDITABLE)
+            formView.findViewById<TextInputEditText>(R.id.input_total_carb)
+                .setText(nutritionLabel?.totalCarb.toString(), TextView.BufferType.EDITABLE)
+            formView.findViewById<TextInputEditText>(R.id.input_fiber)
+                .setText(nutritionLabel?.fiber.toString(), TextView.BufferType.EDITABLE)
+            formView.findViewById<TextInputEditText>(R.id.input_sugar)
+                .setText(nutritionLabel?.sugars.toString(), TextView.BufferType.EDITABLE)
+            formView.findViewById<TextInputEditText>(R.id.input_protein)
+                .setText(nutritionLabel?.protein.toString(), TextView.BufferType.EDITABLE)
+        } else {
+            Log.d("FORM", "clearing")
+            formView.findViewById<TextInputEditText>(R.id.input_calories)
+                .text?.clear()
+            formView.findViewById<TextInputEditText>(R.id.input_total_fat)
+                .text?.clear()
+            formView.findViewById<TextInputEditText>(R.id.input_trans_fat)
+                .text?.clear()
+            formView.findViewById<TextInputEditText>(R.id.input_saturated_fat)
+                .text?.clear()
+            formView.findViewById<TextInputEditText>(R.id.input_cholesterol)
+                .text?.clear()
+            formView.findViewById<TextInputEditText>(R.id.input_sodium)
+                .text?.clear()
+            formView.findViewById<TextInputEditText>(R.id.input_total_carb)
+                .text?.clear()
+            formView.findViewById<TextInputEditText>(R.id.input_fiber)
+                .text?.clear()
+            formView.findViewById<TextInputEditText>(R.id.input_sugar)
+                .text?.clear()
+            formView.findViewById<TextInputEditText>(R.id.input_protein)
+                .text?.clear()
         }
-
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (exists == true) // safety call
+            setFields(currNutritionLabel)
+    }
+
+    fun newLabel() : NutritionLabel? {
+        try {
+            val date : Date = SimpleDateFormat("MM/dd/yyyy").parse(
+                formView.findViewById<TextInputEditText>(R.id.input_date).text!!.toString())
+            val meal : Meal = Meal.valueOf(
+                formView.findViewById<MaterialAutoCompleteTextView>(R.id.input_meal).text!!.toString().toUpperCase())
+            val productName = formView.findViewById<TextInputEditText>(R.id.input_name).text!!.toString()
+            val calories = formView.findViewById<TextInputEditText>(R.id.input_calories).text!!.toString().toInt()
+            val servings = formView.findViewById<TextInputEditText>(R.id.input_servings).text!!.toString().toDouble()
+            val totalFat = formView.findViewById<TextInputEditText>(R.id.input_total_fat).text!!.toString().toInt()
+            val transFat = formView.findViewById<TextInputEditText>(R.id.input_trans_fat).text!!.toString().toInt()
+            val satFat = formView.findViewById<TextInputEditText>(R.id.input_saturated_fat).text!!.toString().toInt()
+            val cholesterol = formView.findViewById<TextInputEditText>(R.id.input_cholesterol).text!!.toString().toInt()
+            val sodium = formView.findViewById<TextInputEditText>(R.id.input_sodium).text!!.toString().toInt()
+            val totalCarb = formView.findViewById<TextInputEditText>(R.id.input_total_carb).text!!.toString().toInt()
+            val sugar = formView.findViewById<TextInputEditText>(R.id.input_sugar).text!!.toString().toInt()
+            val fiber = formView.findViewById<TextInputEditText>(R.id.input_fiber).text!!.toString().toInt()
+            val protein = formView.findViewById<TextInputEditText>(R.id.input_protein).text!!.toString().toInt()
+
+            return NutritionLabel(date, meal, productName, calories, servings, totalFat, transFat,
+                satFat, cholesterol, sodium, totalCarb, fiber, sugar, protein)
+        } catch (e : Exception) {
+            Log.d("FORMERROR", e.toString())
+            return null
+        }
+    }
+
+    companion object {
+        const val TAG = "FORM"
+    }
 }
