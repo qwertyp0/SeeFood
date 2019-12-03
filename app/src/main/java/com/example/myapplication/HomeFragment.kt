@@ -560,8 +560,5 @@ class HomeFragment : Fragment() {
             }
         })
     }
-    private fun testScannerManually() {
-
-    }
 
 }
