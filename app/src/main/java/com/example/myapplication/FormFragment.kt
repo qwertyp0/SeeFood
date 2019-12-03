@@ -53,13 +53,13 @@ class FormFragment : Fragment() {
             isEndIconVisible = true
             setEndIconOnClickListener {
                 formView.findViewById<TextInputEditText>(R.id.input_date).setText(
-                    LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, MMM d, yyyy"))
+                    LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
                 )
             }
         }
 
         // set dropdown menu for meals
-    val mealAdapter = ArrayAdapter<String>(context!!, R.layout.dropdown_menu,
+        val mealAdapter = ArrayAdapter<String>(context!!, R.layout.dropdown_menu,
             arrayOf("Breakfast", "Lunch", "Dinner", "Snack"))
         formView.findViewById<MaterialAutoCompleteTextView>(R.id.input_meal)
             .setAdapter(mealAdapter)
@@ -136,7 +136,7 @@ class FormFragment : Fragment() {
 
     fun newLabel(): NutritionLabel? {
         try {
-            val date: Date = SimpleDateFormat("EEE, MMM d, yyyy").parse(
+            val date : Date = SimpleDateFormat("MM/dd/yyyy").parse(
                 formView.findViewById<TextInputEditText>(R.id.input_date).text!!.toString())
             val meal: Meal = Meal.valueOf(
                 formView.findViewById<MaterialAutoCompleteTextView>(R.id.input_meal).text!!.toString().toUpperCase())
