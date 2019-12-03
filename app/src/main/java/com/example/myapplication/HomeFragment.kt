@@ -110,6 +110,7 @@ class HomeFragment : Fragment() {
         mDateView?.setText(getCurrentDate())
         cal = Calendar.getInstance()
         userId = mAuth!!.getCurrentUser()?.uid.toString()
+        mFragmentManager = fragmentManager
 
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
@@ -118,6 +119,7 @@ class HomeFragment : Fragment() {
                 cal?.set(Calendar.YEAR, year)
                 cal?.set(Calendar.MONTH, monthOfYear)
                 cal?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                mFragmentManager!!.popBackStackImmediate()
                 updateDateInView()
                 fillCharts(userId.toString(),mDateView!!.text.toString())
 
