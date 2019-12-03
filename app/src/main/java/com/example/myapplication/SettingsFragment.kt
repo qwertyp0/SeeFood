@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.NonNull
+import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.firebase.auth.FirebaseAuth
@@ -43,6 +44,8 @@ class SettingsFragment : Fragment() {
         about = view.findViewById(R.id.about_button)
         logout = view.findViewById(R.id.logout_button)
         accountEmail = view.findViewById(R.id.account_email)
+
+
 
         mDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mDatabase!!.reference.child("Users")

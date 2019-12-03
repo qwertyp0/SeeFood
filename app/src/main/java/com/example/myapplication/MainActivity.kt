@@ -106,4 +106,9 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if(supportActionBar!!.title != "Home") changeActionBarTitle("Settings")
+    }
 }

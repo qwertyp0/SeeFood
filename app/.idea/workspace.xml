@@ -14,7 +14,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="226f7a3c-1e8d-4b5e-9f4f-012dda167598" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/history_fragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/history_fragment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/myapplication/HistoryFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/myapplication/HistoryFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/myapplication/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/myapplication/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/myapplication/SettingsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/myapplication/SettingsFragment.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +46,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/HomeFragment.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
+            <state relative-caret-position="2033">
               <caret line="229" column="67" lean-forward="true" selection-start-line="228" selection-start-column="23" selection-end-line="229" selection-end-column="67" />
             </state>
           </provider>
@@ -52,8 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/HistoryFragment.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="92" column="52" lean-forward="true" selection-start-line="92" selection-start-column="52" selection-end-line="92" selection-end-column="52" />
+            <state relative-caret-position="-435">
+              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
               <folding>
                 <element signature="e#35#569#0" expanded="true" />
               </folding>
@@ -61,7 +64,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/history_fragment.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
@@ -74,8 +77,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/SettingsFragment.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="701">
-              <caret line="69" column="12" selection-start-line="69" selection-start-column="12" selection-end-line="69" selection-end-column="12" />
+            <state relative-caret-position="497">
+              <caret line="93" column="5" selection-start-line="93" selection-start-column="5" selection-end-line="93" selection-end-column="5" />
+              <folding>
+                <element signature="e#2360#2403#1" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/MainActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="497">
+              <caret line="111" column="33" lean-forward="true" selection-start-line="111" selection-start-column="33" selection-end-line="111" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -93,8 +108,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mainEntry</find>
-      <find>mainEntryActi</find>
       <find>percentage</find>
       <find>green</find>
       <find>TODO</find>
@@ -105,7 +118,6 @@
       <find>about</find>
       <find>histr</find>
       <find>animate</find>
-      <find>changeActionBarTitle</find>
       <find>proteinColor</find>
       <find>yellow</find>
       <find>MyXAxisValueFormatter</find>
@@ -123,6 +135,9 @@
       <find>makeBarGraph</find>
       <find>date</find>
       <find>name</find>
+      <find>actionbar</find>
+      <find>changeActionBarTitle</find>
+      <find>updateDateInView</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -164,13 +179,13 @@
         <option value="$PROJECT_DIR$/src/main/res/drawable/round_button.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/home_fragment.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/myapplication/HomeFragment.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/myapplication/MainActivity.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/myapplication/LoginActivity.kt" />
         <option value="$PROJECT_DIR$/src/main/res/layout/about_fragment.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/myapplication/MainEntryActivity.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/myapplication/SettingsFragment.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/myapplication/HistoryFragment.kt" />
         <option value="$PROJECT_DIR$/src/main/res/layout/history_fragment.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/myapplication/HistoryFragment.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/myapplication/SettingsFragment.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/myapplication/MainActivity.kt" />
       </list>
     </option>
   </component>
@@ -438,6 +453,18 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-field">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/myapplication/HistoryFragment.kt</url>
+          <line>29</line>
+          <properties myFieldName="mLinearLayout" myClassName="com.example.myapplication.HistoryFragmentKt" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/loading_fragment.xml">
@@ -713,13 +740,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/MainActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="33">
-          <caret line="65" column="13" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/AboutFragment.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -741,20 +761,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/HomeFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="229" column="67" lean-forward="true" selection-start-line="228" selection-start-column="23" selection-end-line="229" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/SettingsFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="701">
-          <caret line="69" column="12" selection-start-line="69" selection-start-column="12" selection-end-line="69" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/about_fragment.xml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -763,13 +769,10 @@
       </provider>
       <provider selected="true" editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/HistoryFragment.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/HomeFragment.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="92" column="52" lean-forward="true" selection-start-line="92" selection-start-column="52" selection-end-line="92" selection-end-column="52" />
-          <folding>
-            <element signature="e#35#569#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="2033">
+          <caret line="229" column="67" lean-forward="true" selection-start-line="228" selection-start-column="23" selection-end-line="229" selection-end-column="67" />
         </state>
       </provider>
     </entry>
@@ -780,6 +783,33 @@
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/HistoryFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-435">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="e#35#569#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/SettingsFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="93" column="5" selection-start-line="93" selection-start-column="5" selection-end-line="93" selection-end-column="5" />
+          <folding>
+            <element signature="e#2360#2403#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/MainActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="111" column="33" lean-forward="true" selection-start-line="111" selection-start-column="33" selection-end-line="111" selection-end-column="33" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

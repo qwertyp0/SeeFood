@@ -56,7 +56,6 @@ class HistoryFragment : Fragment() {
                 cal?.set(Calendar.YEAR, year)
                 cal?.set(Calendar.MONTH, monthOfYear)
                 cal?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                // mFragmentManager!!.popBackStackImmediate()
                 updateDateInView()
             }
         }
