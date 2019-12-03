@@ -14,6 +14,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.LinearLayout
+
+
 
 
 private var mFragmentManager: FragmentManager? = null
@@ -24,6 +27,7 @@ private var mAuth: FirebaseAuth? = null
 private var userId: String? = null
 private var cal: Calendar? = null
 private var mDateView: TextView? = null
+private var mLinearLayout: LinearLayout? = null
 
 class HistoryFragment : Fragment() {
 
@@ -35,6 +39,8 @@ class HistoryFragment : Fragment() {
         mDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mDatabase!!.reference.child("Users")
         mAuth = FirebaseAuth.getInstance()
+
+        mLinearLayout = view.findViewById(R.id.history_container)
 
         //initializing today's date
         mDateView = view.findViewById(R.id.date) as TextView
@@ -50,7 +56,7 @@ class HistoryFragment : Fragment() {
                 cal?.set(Calendar.YEAR, year)
                 cal?.set(Calendar.MONTH, monthOfYear)
                 cal?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                mFragmentManager!!.popBackStackImmediate()
+                // mFragmentManager!!.popBackStackImmediate()
                 updateDateInView()
             }
         }
@@ -66,6 +72,7 @@ class HistoryFragment : Fragment() {
             }
         })
 
+        var date = mDateView!!.text.toString()
 
         //TODO The data is there, but it needs to be organized, maybe into a list?
         //Assume that account_settings are already initialized
@@ -78,6 +85,16 @@ class HistoryFragment : Fragment() {
                     //within the dates there should be a list of items (indexed 0-n)
                     //each item is a map of nutritional values
                     //
+
+                    data?.child("daily_scans")?.child(date)
+                            ?.children.forEachIndexed { index, _ ->
+                        val tv = TextView(context)
+                        tv.text = data?.child("daily_scans")?.child(date)?.child(index.toString())?.child("name").value.toString()
+                        mLinearLayout!!.addView(tv);
+                    }
+
+
+
                     Log.i("History Fragment","Every scan the user made: " + data?.child("daily_scans").value)
                     var daily_scans = data?.child("daily_scans").value
                 }
