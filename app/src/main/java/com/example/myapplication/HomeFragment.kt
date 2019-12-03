@@ -1,6 +1,9 @@
 package com.example.myapplication
 
+import android.widget.DatePicker
+import android.app.DatePickerDialog
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.util.Log
 import android.widget.TextView
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
@@ -17,9 +21,14 @@ import com.github.mikephil.charting.components.LegendEntry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+
 
 import java.text.DecimalFormat
-import java.util.ArrayList
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class HomeFragment : Fragment() {
@@ -48,6 +57,15 @@ class HomeFragment : Fragment() {
     private var mFatTotal: TextView? = null
     private var mFatPercent: TextView? = null
 
+    private var mDatabaseReference: DatabaseReference? = null
+    private var mDatabase: FirebaseDatabase? = null
+    private var mAuth: FirebaseAuth? = null
+
+    private var userId: String? = null
+    private var cal: Calendar? = null
+
+
+    private var mDateView: TextView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -69,10 +87,41 @@ class HomeFragment : Fragment() {
         carbohydrateColor = getColor(context!!, R.color.carbohydrates)
         fatsColor = getColor(context!!, R.color.fat)
 
+        mDatabase = FirebaseDatabase.getInstance()
+        mDatabaseReference = mDatabase!!.reference.child("Users")
+        mAuth = FirebaseAuth.getInstance()
 
-        makeCaloriePieChart(mCaloriePieChart, 2000.0, 1500.0)
-        makeMacroPieChart(mMacroPieChart, 15.0, 20.0, 30.0)
-        makeMacroLegendTable(15.0, 20.0, 30.0)
+        mDateView = view.findViewById(R.id.date) as TextView
+        mDateView?.setText(getCurrentDate())
+        cal = Calendar.getInstance()
+        userId = mAuth!!.getCurrentUser()?.uid.toString()
+        testScannerManually()
+        val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                   dayOfMonth: Int) {
+                cal?.set(Calendar.YEAR, year)
+                cal?.set(Calendar.MONTH, monthOfYear)
+                cal?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateDateInView()
+                fillCharts(userId.toString(),mDateView!!.text.toString())
+            }
+        }
+
+        mDateView!!.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View) {
+                DatePickerDialog(context!!,
+                    dateSetListener,
+                    // set DatePickerDialog to point to today's date when it loads up
+                    cal!!.get(Calendar.YEAR),
+                    cal!!.get(Calendar.MONTH),
+                    cal!!.get(Calendar.DAY_OF_MONTH)).show()
+            }
+
+        })
+//        makeCaloriePieChart(mCaloriePieChart, 2000.0, 1500.0)
+//        makeMacroPieChart(mMacroPieChart, 15.0, 20.0, 30.0)
+//        makeMacroLegendTable(15.0, 20.0, 30.0)
+
 
         return view
     }
@@ -160,6 +209,129 @@ class HomeFragment : Fragment() {
         pieChart.data = PieData(pieDataSet)
 
         return pieChart
+    }
+
+    //When the app launches, always start with Today's date
+    private fun getCurrentDate(): String {
+        var sdf = SimpleDateFormat("EEE, MMM d, yyyy" )
+        var currentDateandTime = sdf.format(Date())
+        Log.i("Current Date","The current date is: "+ currentDateandTime)
+        return currentDateandTime
+    }
+
+    private fun testScannerManually() {
+        var listExists = false
+        var currList = arrayListOf<FoodItem>()
+        var dailyscans =  arrayListOf<FoodItem>()
+        var map: MutableMap<String, Any?> = mutableMapOf()
+        var food1: FoodItem = FoodItem("abcdeEghksjT","pizza",
+            40.0 ,60.0,30.0,
+            1.0,500.0,22.0,30.0)
+        var food2: FoodItem = FoodItem("zyx7ljkLfehi","Chicken",
+            30.0,70.0,24.0,
+            2.0,300.0,22.0,30.0)
+
+        var food3: FoodItem = FoodItem("abcde232dksd","Bbq",
+            40.0,60.0,30.0,
+            1.0,500.0,22.0,30.0)
+        var food4: FoodItem = FoodItem("4ryklhl2hids","potatoes",
+            30.0,70.0,24.0,
+            2.0,500.0,22.0,30.0)
+
+        addFood(userId.toString(),getCurrentDate(),food1)
+        addFood(userId.toString(),getCurrentDate(),food2)
+        addFood(userId.toString(),getCurrentDate(),food3)
+        addFood(userId.toString(),getCurrentDate(),food4)
+
+        //dailyscans.add(food1)
+        //dailyscans.add(food2)
+
+        //dailyscans.add(food3)
+        //dailyscans.add(food4)
+
+        //map.put(getCurrentDate(),dailyscans)
+        //mDatabaseReference?.child(userId.toString())?.updateChildren(map)
+
+    }
+
+    private fun fillCharts(userId: String, date:String) {
+        mDatabaseReference?.child(userId)?.addValueEventListener(object: ValueEventListener {
+            //
+            override fun onDataChange(data: DataSnapshot) {
+                var caloriesConsumed = 0.0
+                var totalProtein = 0.0
+                var totalCarbs = 0.0
+                var totalFats = 0.0
+                var totalServings = 0.0
+                var totalCaloriesAvailable = 0.0
+
+                if (data.hasChild(date)) {
+                    data.children.forEachIndexed { index, _ ->
+                        totalServings = data?.child(date)?.child(index.toString())?.child("servings")
+                            .value.toString().toDouble()
+                        totalProtein += (totalServings) * data?.child(date)?.child(index.toString())?.child("totalProtein")
+                            .value.toString().toDouble()
+                        totalCarbs += (totalServings) * data?.child(date)?.child(index.toString())?.child("totalCarbohydrate")
+                            .value.toString().toDouble()
+                        totalFats += (totalServings) * data?.child(date)?.child(index.toString())?.child("totalFat")
+                            .value.toString().toDouble()
+                        caloriesConsumed +=(totalServings) * data?.child(index.toString())?.child("calories")
+                            .value.toString().toDouble()
+                        totalCaloriesAvailable = data?.child("account_settings")?.child("calories")
+                            .value.toString().toDouble()
+                    }
+                    makeCaloriePieChart(mCaloriePieChart, totalCaloriesAvailable, caloriesConsumed)
+                    makeMacroPieChart(mMacroPieChart, totalCarbs, totalFats, totalProtein)
+                    makeMacroLegendTable(totalCarbs, totalFats, totalProtein)
+                }
+
+            }
+            override fun onCancelled(p0: DatabaseError) {
+                Log.i("Test show charts","Could not find the charts")
+            }
+        })
+    }
+
+    private fun updateDateInView() {
+        val myFormat = "EEE, MMM d, yyyy" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        mDateView!!.text = sdf.format(cal!!.time)
+    }
+
+    private fun addFood(userId:String,date:String,foodItem: FoodItem) {
+
+        var map: MutableMap<String, Any?> = mutableMapOf()
+        var dailyscans =  arrayListOf<FoodItem>()
+        //var hello: MutableMap<String, Any?> = mutableMapOf()
+
+        mDatabaseReference?.child(userId)?.addListenerForSingleValueEvent(object:ValueEventListener {
+            override fun onDataChange(data: DataSnapshot) {
+                if (data.hasChild(date)) {
+                    Log.i("SHOWING DATA","Showing dates foods: "+ data?.child(date).value)
+                    var foodItems = data?.child(date).value as ArrayList<FoodItem>
+
+                    foodItems.add(foodItem)
+                    map.put(date,foodItems)
+                    mDatabaseReference?.child(userId)?.setValue(map)
+
+                }
+                else {
+                    dailyscans.add(foodItem)
+                    map.put(date,dailyscans)
+                    mDatabaseReference?.child(userId)?.setValue(map)
+
+                }
+            }
+            override fun onCancelled(data: DatabaseError) {
+                Log.i("Hello","data cancelled")
+            }
+
+        })
+        Log.i("Daily Scans", "Daily scans: " + dailyscans)
+        mDatabaseReference?.child(userId)?.child(date)?.setValue(dailyscans)
+
+
+
     }
 
 }

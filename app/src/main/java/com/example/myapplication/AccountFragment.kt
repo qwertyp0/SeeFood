@@ -8,6 +8,10 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+
 //import com.google.firebase.auth.FirebaseAuth
 //import com.google.firebase.auth.FirebaseUser
 //import com.google.firebase.database.*
@@ -29,6 +33,9 @@ class AccountFragment : Fragment() {
 
     private var saved: Boolean = false
 
+    private var mDatabaseReference: DatabaseReference? = null
+    private var mDatabase: FirebaseDatabase? = null
+    private var mAuth: FirebaseAuth? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -43,6 +50,10 @@ class AccountFragment : Fragment() {
         male = view.findViewById(R.id.male)
         female = view.findViewById(R.id.female)
         calculate = view.findViewById(R.id.calculate)
+
+        mDatabase = FirebaseDatabase.getInstance()
+        mDatabaseReference = mDatabase!!.reference.child("Users")
+        mAuth = FirebaseAuth.getInstance()
 
         var listOfEditText = arrayListOf(heightText, weightText, ageText)
 
@@ -102,7 +113,10 @@ class AccountFragment : Fragment() {
         if (!saved && result!!.text.toString() == "2000") {
             Toast.makeText(context, "Calculate calories before saving.", Toast.LENGTH_LONG).show()
         } else {
-            val data = HashMap<String, Int>(4)
+            //var accountUser :MutableMap<String, Any?> = mutableMapOf()
+            var accountSettings: MutableMap<String, Any?> = mutableMapOf()
+            var data: MutableMap<String, Any?> = mutableMapOf()
+            val userId = mAuth!!.getCurrentUser()?.uid.toString()
 
             data[CALORIES] = Integer.parseInt(result!!.text.toString())
 
@@ -112,6 +126,10 @@ class AccountFragment : Fragment() {
             data[GENDER] = if (male!!.isChecked) 1 else 0
 
             // put data in database here and other stuff
+            //mDatabaseReference?.push()!!.setValue(userId).toString()
+            accountSettings.put("account_settings",data)
+            mDatabaseReference?.child(userId)?.updateChildren(accountSettings)
+
         }
     }
 

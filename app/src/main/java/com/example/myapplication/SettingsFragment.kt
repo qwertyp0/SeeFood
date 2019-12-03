@@ -14,11 +14,11 @@ import androidx.fragment.app.FragmentManager
 
 
 
-//import com.google.firebase.auth.FirebaseAuth
-//import com.google.firebase.auth.FirebaseUser
-//import com.google.firebase.database.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 
-// import com.google.fireBase.database.R
+//import com.google.fireBase.database.R
 
 class SettingsFragment : Fragment() {
 

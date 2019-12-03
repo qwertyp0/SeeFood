@@ -3,6 +3,7 @@ package com.example.myapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
+import android.util.Log
 import androidx.annotation.NonNull
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
@@ -11,27 +12,29 @@ import androidx.appcompat.widget.Toolbar
 
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
-
-private var mFragmentManager: FragmentManager? = null
-private val mLoadingFragment = loadingFragment()
-private val mAccountFragment = AccountFragment()
-private val mSettingsFragment = SettingsFragment()
-private val mHomeFragment = HomeFragment()
-private var mDrawerLayout: DrawerLayout? = null
-
-private var mDatabase: DatabaseReference? = null
 
 class MainActivity : AppCompatActivity() {
+    private var mFragmentManager: FragmentManager? = null
+    private val mLoadingFragment = loadingFragment()
+    private val mAccountFragment = AccountFragment()
+    private val mSettingsFragment = SettingsFragment()
+    private val mHomeFragment = HomeFragment()
+    private var mDrawerLayout: DrawerLayout? = null
+
+
+    private var mDatabaseReference: DatabaseReference? = null
+    private var mDatabase: FirebaseDatabase? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        mDatabase = FirebaseDatabase.getInstance()
+        mDatabaseReference = mDatabase!!.reference.child("Users")
         setNavBars()
 
         mFragmentManager = supportFragmentManager
@@ -40,6 +43,23 @@ class MainActivity : AppCompatActivity() {
         mFragmentTransaction.add(R.id.fragment_container, mHomeFragment)
         mFragmentTransaction.commit()
         mFragmentManager!!.executePendingTransactions()
+
+        var isFirstTimeUser: Boolean? = false
+
+        //The logic below will be for first time user's only
+        //Upon log in, they will first be directed to account settings
+        mDatabaseReference?.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot){
+                if(dataSnapshot.hasChild("account_settings")){
+                    mFragmentTransaction.replace(R.id.fragment_container,mAccountFragment)
+                    mFragmentTransaction.commit()
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        })
+
     }
 
     fun changeActionBarTitle(title: String) {
