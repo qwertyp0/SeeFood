@@ -209,7 +209,18 @@ class HomeFragment : Fragment() {
         addInitialEntries()
         setUpBarGraphDisplay()
         setUpAxes()
-        // TODO grab all the entries info from database and update them here
+
+
+        // TODO ABIB put in value as a float so replace all the 1000.0f with correct value
+        changeEntry("Total Fat", 1000.0f)
+        changeEntry("Saturated Fat", 1000.0f)
+        changeEntry("Trans Fat", 1000.0f)
+        changeEntry("Cholesterol", 1000.0f)
+        changeEntry("Sodium", 1000.0f)
+        changeEntry("Carbohydrates", 1000.0f)
+        changeEntry("Fiber", 1000.0f)
+        changeEntry("Sugar", 1000.0f)
+        changeEntry("Protein", 1000.0f)
 
         mBarChart!!.layoutParams.height = 200 * 10
 
@@ -233,6 +244,26 @@ class HomeFragment : Fragment() {
     private fun addInitialEntries() {
         for (i in allNutritionNames!!.indices) {
             entries.add(BarEntry(i.toFloat(), floatArrayOf(0f, i.toFloat() * 100)))
+        }
+    }
+
+    private fun changeEntry(nutritionName: String, value: Float) {
+        for (i in allNutritionNames!!.indices) {
+            if (allNutritionNames!![i] === nutritionName) {
+                val dataEntry = entries[i]
+                val x = dataEntry.x
+                val y = dataEntry.yVals
+                var y0 = y[0] + value
+                var y1 = y[1]
+
+                if (y0 > 100) {
+                    y1 = y0
+                    y0 = 0f
+                }
+                entries.removeAt(i)
+                entries.add(i, BarEntry(x, floatArrayOf(y0, y1)))
+                break
+            }
         }
     }
 
