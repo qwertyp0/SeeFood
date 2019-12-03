@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,16 +10,9 @@ import android.widget.*
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-
-
-
-
-
-//import com.google.firebase.auth.FirebaseAuth
-//import com.google.firebase.auth.FirebaseUser
-//import com.google.firebase.database.*
-
-// import com.google.fireBase.database.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class SettingsFragment : Fragment() {
 
@@ -35,6 +29,10 @@ class SettingsFragment : Fragment() {
     private var about: Button? = null
     private var logout: Button? = null
 
+    private var mDatabaseReference: DatabaseReference? = null
+    private var mDatabase: FirebaseDatabase? = null
+    private var mAuth: FirebaseAuth? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -46,8 +44,13 @@ class SettingsFragment : Fragment() {
         logout = view.findViewById(R.id.logout_button)
         accountEmail = view.findViewById(R.id.account_email)
 
+        mDatabase = FirebaseDatabase.getInstance()
+        mDatabaseReference = mDatabase!!.reference.child("Users")
+        mAuth = FirebaseAuth.getInstance()
+        var userId = mAuth!!.getCurrentUser()?.uid.toString()
+
         // Todo this will be grabbed from database and replaced here
-        accountEmail!!.text = "joe.smith@gmail.com"
+        accountEmail!!.text = mAuth!!.getCurrentUser()?.email.toString()
 
         // Todo make strings in R.vales.string for titles
         account!!.setOnClickListener {
@@ -79,7 +82,9 @@ class SettingsFragment : Fragment() {
         }
 
         logout!!.setOnClickListener {
-
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(activity as MainActivity,MainEntryActivity::class.java)
+            startActivity(intent)
         }
         return view
     }

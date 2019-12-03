@@ -21,6 +21,8 @@ class RegistrationActivity : AppCompatActivity() {
 
     private var emailTV: EditText? = null
     private var passwordTV: EditText? = null
+    private var confirmPasswordTV: EditText? = null
+
     private var regBtn: Button? = null
     private var progressBar: ProgressBar? = null
 
@@ -40,8 +42,10 @@ class RegistrationActivity : AppCompatActivity() {
 
         val email: String
         val password: String
+        val confirmedPassword: String
         email = emailTV!!.text.toString()
         password = passwordTV!!.text.toString()
+        confirmedPassword = confirmPasswordTV!!.text.toString()
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(applicationContext, "Please enter email...", Toast.LENGTH_LONG).show()
@@ -49,6 +53,10 @@ class RegistrationActivity : AppCompatActivity() {
         }
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(applicationContext, "Please enter password!", Toast.LENGTH_LONG).show()
+            return
+        }
+        if (!confirmedPassword.equals(password)) {
+            Toast.makeText(applicationContext, "Please make sure passwords match!", Toast.LENGTH_LONG).show()
             return
         }
 
@@ -72,5 +80,6 @@ class RegistrationActivity : AppCompatActivity() {
         passwordTV = findViewById(R.id.password)
         regBtn = findViewById(R.id.register)
         progressBar = findViewById(R.id.progressBar)
+        confirmPasswordTV = findViewById(R.id.confirmPassword)
     }
 }

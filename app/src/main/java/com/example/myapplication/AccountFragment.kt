@@ -9,8 +9,7 @@ import android.widget.*
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
 
 // import com.google.fireBase.database.R
@@ -54,6 +53,7 @@ class AccountFragment : Fragment() {
         mDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mDatabase!!.reference.child("Users")
         mAuth = FirebaseAuth.getInstance()
+        var userId = mAuth!!.getCurrentUser()?.uid.toString()
 
         var listOfEditText = arrayListOf(heightText, weightText, ageText)
 
@@ -105,6 +105,23 @@ class AccountFragment : Fragment() {
                 Toast.makeText(context, "Enter your Information", Toast.LENGTH_LONG).show()
             }
         }
+        mDatabaseReference?.child(userId)?.addListenerForSingleValueEvent(object:ValueEventListener {
+            override fun onDataChange(data: DataSnapshot) {
+                //if account settings are present
+                if (data.hasChild("account_settings")) {
+                    heightText!!.setText(data?.child("account_settings")?.child("height").value.toString())
+                    weightText!!.setText(data?.child("account_settings")?.child("weight").value.toString())
+                    ageText!!.setText(data?.child("account_settings")?.child("age").value.toString())
+                    result!!.setText(data?.child("account_settings")?.child("calories").value.toString())
+
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                Log.i("Account data","NO account datat")
+            }
+        })
+
         return view
     }
 
