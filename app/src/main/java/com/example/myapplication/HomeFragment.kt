@@ -149,8 +149,9 @@ class HomeFragment : Fragment() {
 //            mFragmentTransaction.commit()
 //            mFragmentManager!!.executePendingTransactions()
             var intent = Intent(context, ScannerActivity::class.java)
+            mFragmentManager!!.popBackStackImmediate()
             startActivityForResult(intent, 1)
-            // mFragmentManager!!.popBackStackImmediate()
+
         }
 
 
@@ -226,9 +227,12 @@ class HomeFragment : Fragment() {
         mBarChart!!.invalidate()
     }
 
+    // ("Protein", "Sugar", "Fiber", "Carbohydrates", "Sodium", "Cholesterol", "Trans Fat", "Saturated Fat", "Total Fat")
+    // reverse order of this
+
     private fun addInitialEntries() {
         for (i in allNutritionNames!!.indices) {
-            entries.add(BarEntry(i.toFloat(), floatArrayOf(0f, i.toFloat())))
+            entries.add(BarEntry(i.toFloat(), floatArrayOf(0f, i.toFloat() * 100)))
         }
     }
 
