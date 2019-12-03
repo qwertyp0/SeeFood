@@ -62,7 +62,7 @@ class FormFragment : Fragment() {
 
         // set dropdown menu for meals
         val mealAdapter = ArrayAdapter<String>(context!!, R.layout.dropdown_menu,
-            arrayOf("Breakfast", "Lunch", "Dinner", "Snacks"))
+            arrayOf("Breakfast", "Lunch", "Dinner", "Snack"))
         formView.findViewById<MaterialAutoCompleteTextView>(R.id.input_meal)
             .setAdapter(mealAdapter)
 
