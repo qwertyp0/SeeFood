@@ -122,6 +122,7 @@ class HomeFragment : Fragment() {
                 mFragmentManager!!.popBackStackImmediate()
                 updateDateInView()
                 fillCharts(userId.toString(),mDateView!!.text.toString())
+                makeBarGraph()
 
                 //fillCharts(userId.toString(),mDateView!!.text.toString())
             }
@@ -192,6 +193,7 @@ class HomeFragment : Fragment() {
 
                     }
                     fillCharts(userId.toString(),date)
+                    makeBarGraph()
 
 
                 }
@@ -279,6 +281,18 @@ class HomeFragment : Fragment() {
                         changeEntry("Fiber", totalFiber.toFloat())
                         changeEntry("Sugar", totalSugar.toFloat())
                         changeEntry("Protein", totalProtein.toFloat())
+                    }
+                    else {
+                        //if there is no data for the given date
+                        changeEntry("Total Fat", 0.0f)
+                        changeEntry("Saturated Fat", 0.0f)
+                        changeEntry("Trans Fat", 0.0f)
+                        changeEntry("Cholesterol", 0.0f)
+                        changeEntry("Sodium", 0.0f)
+                        changeEntry("Carbohydrates",0.0f)
+                        changeEntry("Fiber", 0.0f)
+                        changeEntry("Sugar", 0.0f)
+                        changeEntry("Protein", 0.0f)
                     }
                 }
 
