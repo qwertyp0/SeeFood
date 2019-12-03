@@ -3,6 +3,9 @@ package com.example.myapplication
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.widget.DatePicker
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,8 +23,13 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+
 import java.text.DecimalFormat
 import java.util.ArrayList
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class HomeFragment : Fragment() {
@@ -58,6 +66,14 @@ class HomeFragment : Fragment() {
     private var allNutritionNames: Array<String>? = arrayOf("Protein", "Sugar", "Fiber", "Carbohydrates", "Sodium", "Cholesterol", "Trans Fat", "Saturated Fat", "Total Fat")
     private val entries: ArrayList<BarEntry> = ArrayList()
 
+
+    private var mDatabaseReference: DatabaseReference? = null
+    private var mDatabase: FirebaseDatabase? = null
+    private var mAuth: FirebaseAuth? = null
+    private var userId: String? = null
+    private var cal: Calendar? = null
+    private var mDateView: TextView? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.home_fragment, container, false)
@@ -83,6 +99,41 @@ class HomeFragment : Fragment() {
         caloriesAvailable = getColor(context!!, R.color.caloriesAvailable)
 
         barGraphColor = getColor(context!!, R.color.barGraph)
+
+        //initializing database stuff
+        mDatabase = FirebaseDatabase.getInstance()
+        mDatabaseReference = mDatabase!!.reference.child("Users")
+        mAuth = FirebaseAuth.getInstance()
+
+        //initializing today's date
+        mDateView = view.findViewById(R.id.date) as TextView
+        mDateView?.setText(getCurrentDate())
+        cal = Calendar.getInstance()
+        userId = mAuth!!.getCurrentUser()?.uid.toString()
+
+
+        val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                   dayOfMonth: Int) {
+                cal?.set(Calendar.YEAR, year)
+                cal?.set(Calendar.MONTH, monthOfYear)
+                cal?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateDateInView()
+                fillCharts(userId.toString(),mDateView!!.text.toString())
+            }
+        }
+        mDateView!!.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View) {
+                DatePickerDialog(context!!,
+                    dateSetListener,
+                    // set DatePickerDialog to point to today's date when it loads up
+                    cal!!.get(Calendar.YEAR),
+                    cal!!.get(Calendar.MONTH),
+                    cal!!.get(Calendar.DAY_OF_MONTH)).show()
+                fillCharts(userId.toString(),mDateView!!.text.toString())
+            }
+
+        })
 
         mFloatingActionButton = view.findViewById(R.id.floating_action_button)
         mFloatingActionButton!!.setOnClickListener {
@@ -112,6 +163,37 @@ class HomeFragment : Fragment() {
             val nutritionLabel : NutritionLabel? =
                 data?.getParcelableExtra<NutritionLabel>("result")
             // TODO: Abib upload the nutrtion label to firebase if not null
+            var map: MutableMap<String, Any?> = mutableMapOf()
+            var dailyscans =  arrayListOf<NutritionLabel>()
+            var date = mDateView!!.text.toString()
+            mDatabaseReference?.child(userId.toString())?.addListenerForSingleValueEvent(object:ValueEventListener {
+                override fun onDataChange(data: DataSnapshot) {
+                    if (data.hasChild(mDateView!!.text.toString())) {
+
+                        if (data.hasChild(date)) {
+                            Log.i("SHOWING DATA", "Showing dates foods: " + data?.child(date).value)
+                            var foodItems = data?.child(date).value as ArrayList<NutritionLabel>
+
+                            if (nutritionLabel != null) {
+                                foodItems.add(nutritionLabel)
+                            }
+                            map.put(date, foodItems)
+                            mDatabaseReference?.child(userId.toString())?.setValue(map)
+
+                        } else {
+                            if (nutritionLabel != null) {
+                                dailyscans.add(nutritionLabel)
+                            }
+                            map.put(date, dailyscans)
+                            mDatabaseReference?.child(userId.toString())?.setValue(map)
+
+                        }
+                    }
+                }
+                    override fun onCancelled(data: DatabaseError) {
+                        Log.i("Hello","data cancelled")
+                    }
+            })
         }
         else
             Log.d("result", "failed")
@@ -273,6 +355,59 @@ class HomeFragment : Fragment() {
         override fun getFormattedValue(value: Float): String {
             return allNutritionNames!![value.toInt()]
         }
+    }
+
+    //Abib's database stuff
+    private fun getCurrentDate(): String {
+        var sdf = SimpleDateFormat("EEE, MMM d, yyyy" )
+        var currentDateandTime = sdf.format(Date())
+        Log.i("Current Date","The current date is: "+ currentDateandTime)
+        return currentDateandTime
+    }
+    private fun updateDateInView() {
+        val myFormat = "EEE, MMM d, yyyy" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        mDateView!!.text = sdf.format(cal!!.time)
+    }
+    private fun fillCharts(userId: String, date:String) {
+        mDatabaseReference?.child(userId)?.addValueEventListener(object: ValueEventListener {
+            //
+            override fun onDataChange(data: DataSnapshot) {
+                var caloriesConsumed = 0.0
+                var totalProtein = 0.0
+                var totalCarbs = 0.0
+                var totalFats = 0.0
+                var totalServings = 0.0
+                var totalCaloriesAvailable = 0.0
+
+                if (data.hasChild(date)) {
+                    data.children.forEachIndexed { index, _ ->
+                        totalServings = data?.child(date)?.child(index.toString())?.child("servings")
+                            .value.toString().toDouble()
+                        totalProtein += (totalServings) * data?.child(date)?.child(index.toString())?.child("totalProtein")
+                            .value.toString().toDouble()
+                        totalCarbs += (totalServings) * data?.child(date)?.child(index.toString())?.child("totalCarbohydrate")
+                            .value.toString().toDouble()
+                        totalFats += (totalServings) * data?.child(date)?.child(index.toString())?.child("totalFat")
+                            .value.toString().toDouble()
+                        caloriesConsumed +=(totalServings) * data?.child(index.toString())?.child("calories")
+                            .value.toString().toDouble()
+                        totalCaloriesAvailable = data?.child("account_settings")?.child("calories")
+                            .value.toString().toDouble()
+                    }
+                    makeCaloriePieChart(mCaloriePieChart, totalCaloriesAvailable, caloriesConsumed)
+                    makeMacroPieChart(mMacroPieChart, totalCarbs, totalFats, totalProtein)
+                    makeMacroLegendTable(totalCarbs, totalFats, totalProtein)
+                }
+
+            }
+            override fun onCancelled(p0: DatabaseError) {
+                Log.i("Test show charts","Could not find the charts")
+            }
+        })
+    }
+    private fun testScannerManually() {
+
     }
 
 }

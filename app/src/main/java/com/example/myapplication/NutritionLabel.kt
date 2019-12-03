@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import java.util.*
@@ -21,6 +22,7 @@ data class NutritionLabel(var date : Date? = null,
                           var fiber : Int = 0,
                           var sugars : Int = 0,
                           var protein : Int = 0) : Parcelable {
+
     override fun toString(): String {
         return "START\n" +
                 "date ${date?.toString()}\n" +
@@ -58,4 +60,6 @@ data class NutritionLabel(var date : Date? = null,
             this.protein
         )
     }
+
+
 }
