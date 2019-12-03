@@ -207,20 +207,93 @@ class HomeFragment : Fragment() {
 
     private fun makeBarGraph() {
         addInitialEntries()
+
+        mDatabaseReference?.child(userId.toString())?.addListenerForSingleValueEvent(object:ValueEventListener {
+            override fun onDataChange(data: DataSnapshot) {
+                var date = mDateView!!.text.toString()
+                var totalTransFat = 0.0
+                var totalProtein = 0.0
+                var totalCarbs = 0.0
+                var totalFats = 0.0
+                var totalCholesterol = 0.0
+                var totalSodium = 0.0
+                var totalSugar = 0.0
+                var totalSatFat = 0.0
+                var totalFiber = 0.0
+                var totalServings = 0.0
+                if (data.hasChild("daily_scans")) {
+
+                    if (data?.child("daily_scans")?.hasChild(date)) {
+                        Log.i("ITEM INFO","THE items: " + data?.child("daily_scans"))
+                        data?.child("daily_scans")?.child(date)
+                            ?.children.forEachIndexed { index, _ ->
+                            totalServings =
+                                data?.child("daily_scans")?.child(date)?.child(index.toString())
+                                    ?.child("servings")
+                                    .value.toString().toDouble()
+                            totalProtein += (totalServings) * data?.child("daily_scans")?.child(date)?.child(
+                                index.toString()
+                            )?.child("protein")
+                                .value.toString().toDouble()
+                            totalCarbs += (totalServings) * data?.child("daily_scans")?.child(date)?.child(
+                                index.toString()
+                            )?.child("totalCarb")
+                                .value.toString().toDouble()
+                            totalFats += (totalServings) * data?.child("daily_scans")?.child(date)?.child(
+                                index.toString()
+                            )?.child("totalFat")
+                                .value.toString().toDouble()
+                            totalTransFat += (totalServings) * data?.child("daily_scans")?.child(
+                                date
+                            )?.child(index.toString())?.child("transFat")
+                                .value.toString().toDouble()
+                            totalSatFat += (totalServings) * data?.child("daily_scans")?.child(date)?.child(
+                                index.toString()
+                            )?.child("saturatedFat")
+                                .value.toString().toDouble()
+                            totalCholesterol += (totalServings) * data?.child("daily_scans")?.child(
+                                date
+                            )?.child(index.toString())?.child("cholesterol")
+                                .value.toString().toDouble()
+                            totalSodium += (totalServings) * data?.child("daily_scans")?.child(date)?.child(
+                                index.toString()
+                            )?.child("sodium")
+                                .value.toString().toDouble()
+                            totalSugar += (totalServings) * data?.child("daily_scans")?.child(date)?.child(
+                                index.toString()
+                            )?.child("sugars")
+                                .value.toString().toDouble()
+                            totalFiber += (totalServings) * data?.child("daily_scans")?.child(date)?.child(
+                                index.toString()
+                            )?.child("fiber")
+                                .value.toString().toDouble()
+                        }
+
+                        // TODO ABIB put in value as a float so replace all the 1000.0f with correct value
+                        changeEntry("Total Fat", totalFats.toFloat())
+                        changeEntry("Saturated Fat", totalSatFat.toFloat())
+                        changeEntry("Trans Fat", totalTransFat.toFloat())
+                        changeEntry("Cholesterol", totalCholesterol.toFloat())
+                        changeEntry("Sodium", totalSodium.toFloat())
+                        changeEntry("Carbohydrates", totalCarbs.toFloat())
+                        changeEntry("Fiber", totalFiber.toFloat())
+                        changeEntry("Sugar", totalSugar.toFloat())
+                        changeEntry("Protein", totalProtein.toFloat())
+                    }
+                }
+
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                Log.i("Bar graph data","Not retrieved")
+            }
+        })
         setUpBarGraphDisplay()
         setUpAxes()
 
 
-        // TODO ABIB put in value as a float so replace all the 1000.0f with correct value
-        changeEntry("Total Fat", 1000.0f)
-        changeEntry("Saturated Fat", 1000.0f)
-        changeEntry("Trans Fat", 1000.0f)
-        changeEntry("Cholesterol", 1000.0f)
-        changeEntry("Sodium", 1000.0f)
-        changeEntry("Carbohydrates", 1000.0f)
-        changeEntry("Fiber", 1000.0f)
-        changeEntry("Sugar", 1000.0f)
-        changeEntry("Protein", 1000.0f)
+
+
 
         mBarChart!!.layoutParams.height = 200 * 10
 
