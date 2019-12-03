@@ -60,10 +60,8 @@ class HomeFragment : Fragment() {
     private var mFloatingActionButton: FloatingActionButton? = null
     private var mFragmentManager: FragmentManager? = null
 
-    // TODO Remove once FAB has camera activity
-    private val mAboutFragment = AboutFragment()
 
-    private var allNutritionNames: Array<String>? = arrayOf("Protein", "Sugar", "Fiber", "Carbohydrates", "Sodium", "Cholesterol", "Trans Fat", "Saturated Fat", "Total Fat")
+    private var allNutritionNames: Array<String>? = arrayOf("Protein",  "Fiber", "Sugar", "Carbohydrates", "Sodium", "Cholesterol", "Saturated Fat", "Trans Fat",  "Total Fat")
     private var entries: ArrayList<BarEntry> = ArrayList()
 
 
@@ -150,9 +148,8 @@ class HomeFragment : Fragment() {
 //            mFragmentTransaction.commit()
 //            mFragmentManager!!.executePendingTransactions()
             var intent = Intent(context, ScannerActivity::class.java)
-            mFragmentManager!!.popBackStackImmediate()
             startActivityForResult(intent, 1)
-
+            mFragmentManager!!.popBackStackImmediate()
         }
 
 
@@ -417,13 +414,25 @@ class HomeFragment : Fragment() {
         val df = DecimalFormat("#####.#")
 
         mCarbohydrateTotal!!.text = df.format(carbsTotal).toString()
-        mCarbohydratePercent!!.text = (df.format((carbsTotal/totalMacros) * 100).toString() + "%")
+        if (carbsTotal == 0.0) {
+            mCarbohydratePercent!!.text = "0%"
+        } else {
+            mCarbohydratePercent!!.text = (df.format((carbsTotal/totalMacros) * 100).toString() + "%")
+        }
 
         mProteinTotal!!.text = df.format(fatsTotal).toString()
-        mProteinPercent!!.text = (df.format((fatsTotal/totalMacros) * 100).toString() + "%")
+        if (proteinsTotal == 0.0) {
+            mProteinPercent!!.text = "0%"
+        } else {
+            mProteinPercent!!.text = (df.format((fatsTotal/totalMacros) * 100).toString() + "%")
+        }
 
         mFatTotal!!.text = df.format(proteinsTotal).toString()
-        mFatPercent!!.text = (df.format((proteinsTotal/totalMacros) * 100).toString() + "%")
+        if (fatsTotal == 0.0) {
+            mFatPercent!!.text = "0%"
+        } else {
+            mFatPercent!!.text = (df.format((proteinsTotal / totalMacros) * 100).toString() + "%")
+        }
 
     }
 
@@ -542,15 +551,22 @@ class HomeFragment : Fragment() {
                     if (data.hasChild("account_settings")){
                         totalCaloriesAvailable =data?.child("account_settings")?.child("calories").value.toString().toDouble()
                         makeCaloriePieChart(mCaloriePieChart, totalCaloriesAvailable, caloriesConsumed)
+                    } else {
+                        makeCaloriePieChart(mCaloriePieChart, 2000.0, caloriesConsumed)
                     }
 
-                    makeMacroPieChart(mMacroPieChart, totalCarbs, totalFats, totalProtein)
-                    makeMacroLegendTable(totalCarbs, totalFats, totalProtein)
+                    if (totalCarbs == 0.0 && totalFats == 0.0 && totalProtein == 0.0) {
+                        makeMacroPieChart(mMacroPieChart, 1.0, 1.0, 1.0)
+                        makeMacroLegendTable(0.0, 0.0, 0.0)
+                    } else {
+                        makeMacroPieChart(mMacroPieChart, totalCarbs, totalFats, totalProtein)
+                        makeMacroLegendTable(totalCarbs, totalFats, totalProtein)
+                    }
                 }
 
                 else {
                     makeCaloriePieChart(mCaloriePieChart, 2000.0, 0.0)
-                    makeMacroPieChart(mMacroPieChart, 0.0, 0.0, 0.0)
+                    makeMacroPieChart(mMacroPieChart, 1.0, 1.0, 1.0)
                     makeMacroLegendTable(0.0, 0.0, 0.0)
                 }
 
