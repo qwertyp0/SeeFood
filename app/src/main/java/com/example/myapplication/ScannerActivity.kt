@@ -63,6 +63,7 @@ class ScannerActivity : AppCompatActivity(), View.OnClickListener {
         toolBar.setNavigationOnClickListener { finish() }
         toolBar.setTitleTextColor(resources.getColor(R.color.white))
 
+
         // check permissions first
         if (!allPermissionsGranted())
             ActivityCompat.requestPermissions(
@@ -91,7 +92,9 @@ class ScannerActivity : AppCompatActivity(), View.OnClickListener {
             R.id.extended_fab -> {
                 val label = formFragment.newLabel()
                 if (label == null) {
-                    Snackbar.make(fragment_container, "Invalid fields, please double check", Snackbar.LENGTH_LONG)
+                    Snackbar.make(this.findViewById<FrameLayout>(R.id.fragment_container),
+                        "Invalid fields, please double check",
+                        Snackbar.LENGTH_LONG)
                         .show()
                 } else {
                     val intent = Intent()
