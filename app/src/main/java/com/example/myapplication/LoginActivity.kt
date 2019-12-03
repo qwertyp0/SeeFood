@@ -17,6 +17,11 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class LoginActivity : AppCompatActivity() {
     private var mDatabaseReference: DatabaseReference? = null
@@ -63,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val intent = Intent(this@LoginActivity,MainActivity::class.java)
                         intent.putExtra(UserID,mAuth!!.getCurrentUser()?.uid)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         Log.i(TAG,"The current user id is : " + mAuth!!.getCurrentUser()?.uid)
                         startActivity(intent)
                     }
