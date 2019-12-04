@@ -111,32 +111,32 @@ class HomeFragment : Fragment() {
         mFragmentManager = fragmentManager
 
 
-//        val dateSetListener = object : DatePickerDialog.OnDateSetListener {
-//            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
-//                                   dayOfMonth: Int) {
-//                cal?.set(Calendar.YEAR, year)
-//                cal?.set(Calendar.MONTH, monthOfYear)
-//                cal?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-//                mFragmentManager!!.popBackStackImmediate()
-//                updateDateInView()
-//                fillCharts(userId.toString(),mDateView!!.text.toString())
-//                makeBarGraph()
-//
-//                //fillCharts(userId.toString(),mDateView!!.text.toString())
-//            }
-//        }
-//        mDateView!!.setOnClickListener(object : View.OnClickListener {
-//            override fun onClick(view: View) {
-//                DatePickerDialog(context!!,
-//                    dateSetListener,
-//                    // set DatePickerDialog to point to today's date when it loads up
-//                    cal!!.get(Calendar.YEAR),
-//                    cal!!.get(Calendar.MONTH),
-//                    cal!!.get(Calendar.DAY_OF_MONTH)).show()
-//                    updateDateInView()
-//            }
-//
-//        })
+        val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                   dayOfMonth: Int) {
+                cal?.set(Calendar.YEAR, year)
+                cal?.set(Calendar.MONTH, monthOfYear)
+                cal?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                mFragmentManager!!.popBackStackImmediate()
+                updateDateInView()
+                fillCharts(userId.toString(),mDateView!!.text.toString())
+                makeBarGraph()
+
+                //fillCharts(userId.toString(),mDateView!!.text.toString())
+            }
+        }
+        mDateView!!.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View) {
+                DatePickerDialog(context!!,
+                    dateSetListener,
+                    // set DatePickerDialog to point to today's date when it loads up
+                    cal!!.get(Calendar.YEAR),
+                    cal!!.get(Calendar.MONTH),
+                    cal!!.get(Calendar.DAY_OF_MONTH)).show()
+                    updateDateInView()
+            }
+
+        })
 
         mFloatingActionButton = view.findViewById(R.id.floating_action_button)
         mFloatingActionButton!!.setOnClickListener {
@@ -563,12 +563,15 @@ class HomeFragment : Fragment() {
                         makeMacroPieChart(mMacroPieChart, totalCarbs, totalFats, totalProtein)
                         makeMacroLegendTable(totalCarbs, totalFats, totalProtein)
                     }
-                }
-
-                else {
-                    makeCaloriePieChart(mCaloriePieChart, 2000.0, 0.0)
+                } else if (data.hasChild("account_settings")) {
+                    totalCaloriesAvailable =data?.child("account_settings")?.child("calories").value.toString().toDouble()
+                    makeCaloriePieChart(mCaloriePieChart, totalCaloriesAvailable, 0.0)
                     makeMacroPieChart(mMacroPieChart, 1.0, 1.0, 1.0)
                     makeMacroLegendTable(0.0, 0.0, 0.0)
+                } else {
+                     makeCaloriePieChart(mCaloriePieChart, 2000.0, 0.0)
+                     makeMacroPieChart(mMacroPieChart, 1.0, 1.0, 1.0)
+                     makeMacroLegendTable(0.0, 0.0, 0.0)
                 }
 
             }

@@ -16,11 +16,11 @@ class MainEntryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main_entry)
 
         // if user has logged in, auto login
-        val auth = FirebaseAuth.getInstance()
-        if (auth.currentUser != null) {
-            startActivity(Intent(this@MainEntryActivity, MainActivity::class.java))
-            this.finish()
-        }
+        // val auth = FirebaseAuth.getInstance()
+//        if (auth.currentUser != null) {
+//            startActivity(Intent(this@MainEntryActivity, MainActivity::class.java))
+//            this.finish()
+//        }
 
         initializeViews()
 
