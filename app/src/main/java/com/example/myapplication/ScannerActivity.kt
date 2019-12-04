@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.appbar.AppBarLayout
@@ -22,6 +23,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.runBlocking
 
 
 private const val REQUEST_CODE_PERMISSIONS = 10
@@ -69,19 +71,18 @@ class ScannerActivity : AppCompatActivity(), View.OnClickListener {
             ActivityCompat.requestPermissions(
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         else {
-            cameraFragment = CameraFragment()
+            if (!::cameraFragment.isInitialized)
+                cameraFragment = CameraFragment()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container, cameraFragment, cameraFragment.tag)
+                .commit()
         }
-
 
         // set up ui model and fragments
         setUpUIModel()
         formFragment = FormFragment()
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container, cameraFragment, cameraFragment.tag)
-            .commit()
 
         // intial ui state
-        uiModel?.setUIState(UIState.BARCODE)
         uiModel?.setNutritionLabel(NutritionLabel())
         uiModel?.setNutritionLabelExists(false)
     }
@@ -221,9 +222,18 @@ class ScannerActivity : AppCompatActivity(), View.OnClickListener {
                     .show()
                 finish()
             } else {
-                cameraFragment = CameraFragment()
+                if (!::cameraFragment.isInitialized)
+                    cameraFragment = CameraFragment()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, cameraFragment, cameraFragment.tag)
+                    .commit()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        uiModel?.setUIState(UIState.BARCODE)
     }
 
     // Checks if permissions granted
