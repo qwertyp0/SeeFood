@@ -111,7 +111,7 @@ class HistoryFragment : Fragment() {
                                 var satFat = list?.child("saturatedFat").value.toString()
                                 var transFat = list?.child("transFat").value.toString()
                                 var sugar = list?.child("sugars").value.toString()
-                                var sodium = list?.child("sodiuum").value.toString()
+                                var sodium = list?.child("sodium").value.toString()
                                 var fiber = list?.child("fiber").value.toString()
                                 var cholesterol = list?.child("cholesterol").value.toString()
 
@@ -125,9 +125,9 @@ class HistoryFragment : Fragment() {
                                         "Saturated Fat: " + satFat + "g\n" +
                                         "Trans Fat: " + transFat + "g\n" +
                                         "Sugar: " + sugar + "g\n" +
-                                        "Sodium: " + sodium + "g\n" +
+                                        "Sodium: " + sodium + "mg\n" +
                                         "Fiber: " + fiber + "g\n" +
-                                        "Cholesterol: " + cholesterol + "g\n" )
+                                        "Cholesterol: " + cholesterol + "mg\n" )
                                     // if the dialog is cancelable
                                     .setCancelable(false)
                                     // positive button text and action
