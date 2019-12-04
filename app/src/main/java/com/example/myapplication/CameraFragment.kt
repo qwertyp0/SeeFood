@@ -88,8 +88,10 @@ class CameraFragment : Fragment() {
 
             when (currUIState) {
                 UIState.BARCODE, UIState.LABEL -> {
+                    Log.d("ALDKJALSKDJLAKJDS:ALK", "JADLKA:SLDKJA:SLDK:ALDKJ:ALKDJ:AK")
                     spinner.visibility = View.GONE
                     if (!CameraX.isBound(preview)) {
+                        Log.d("ALDKJALSKDJLAKJDS:ALK", "BINDING!!!!!!!!!")
                         viewFinder.post { startCamera() }
                     }
                 }

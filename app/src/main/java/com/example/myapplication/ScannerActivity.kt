@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import androidx.annotation.MainThread
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -42,6 +43,7 @@ class ScannerActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var gradientAppBar : RelativeLayout
     private lateinit var chip : Chip
     private var inflatedMenu = false
+    private var cameraSetup = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,21 +67,19 @@ class ScannerActivity : AppCompatActivity(), View.OnClickListener {
         toolBar.setNavigationOnClickListener { finish() }
         toolBar.setTitleTextColor(resources.getColor(R.color.white))
 
+        // Creating UI Model
+        setUpUIModel()
 
         // check permissions first
         if (!allPermissionsGranted())
             ActivityCompat.requestPermissions(
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         else {
-            if (!::cameraFragment.isInitialized)
-                cameraFragment = CameraFragment()
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container, cameraFragment, cameraFragment.tag)
-                .commit()
+            if (!cameraSetup)
+                setupCamera()
         }
 
         // set up ui model and fragments
-        setUpUIModel()
         formFragment = FormFragment()
 
         // intial ui state
@@ -222,18 +222,28 @@ class ScannerActivity : AppCompatActivity(), View.OnClickListener {
                     .show()
                 finish()
             } else {
-                if (!::cameraFragment.isInitialized)
-                    cameraFragment = CameraFragment()
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, cameraFragment, cameraFragment.tag)
-                    .commit()
+                if (!cameraSetup)
+                    setupCamera()
             }
+        }
+    }
+
+    @MainThread
+    fun setupCamera() {
+        if (!cameraSetup) {
+            cameraSetup = true
+            cameraFragment = CameraFragment()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container, cameraFragment, cameraFragment.tag)
+                .commit()
+            uiModel?.setUIState(UIState.BARCODE)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        uiModel?.setUIState(UIState.BARCODE)
+        if (currUIState != UIState.BARCODE)
+            uiModel?.setUIState(UIState.BARCODE)
     }
 
     // Checks if permissions granted
