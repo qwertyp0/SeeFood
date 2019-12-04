@@ -11,14 +11,11 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
+    <option name="SHOW_AS_SECONDS_SINCE_EPOCH" value="true" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="226f7a3c-1e8d-4b5e-9f4f-012dda167598" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/myapplication/HomeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/myapplication/HomeFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/myapplication/MainEntryActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/myapplication/MainEntryActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/myapplication/SettingsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/myapplication/SettingsFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/settings_fragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/settings_fragment.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,8 +44,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/HomeFragment.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="522" column="5" lean-forward="true" selection-start-line="522" selection-start-column="5" selection-end-line="522" selection-end-column="5" />
+            <state relative-caret-position="7395">
+              <caret line="522" column="5" selection-start-line="522" selection-start-column="5" selection-end-line="522" selection-end-column="5" />
               <folding>
                 <element signature="e#35#1130#0" expanded="true" />
               </folding>
@@ -59,7 +56,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/LoginActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
+            <state relative-caret-position="1155">
               <caret line="96" column="11" selection-start-line="96" selection-start-column="8" selection-end-line="96" selection-end-column="11" />
             </state>
           </provider>
@@ -68,8 +65,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/MainEntryActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="29">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
+            <state relative-caret-position="345">
+              <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -77,7 +74,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/FormFragment.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
+            <state relative-caret-position="1920">
               <caret line="144" column="51" selection-start-line="144" selection-start-column="51" selection-end-line="144" selection-end-column="51" />
             </state>
           </provider>
@@ -86,8 +83,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/SettingsFragment.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="42" column="58" lean-forward="true" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="58" />
+            <state relative-caret-position="435">
+              <caret line="42" column="58" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -96,8 +93,8 @@
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_form.xml">
           <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+            <state relative-caret-position="585">
+              <caret line="39" selection-start-line="39" selection-end-line="39" />
             </state>
           </provider>
         </entry>
@@ -106,8 +103,8 @@
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/settings_fragment.xml">
           <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="105" lean-forward="true" selection-start-line="105" selection-end-line="105" />
+            <state relative-caret-position="1575">
+              <caret line="105" selection-start-line="105" selection-end-line="105" />
             </state>
           </provider>
         </entry>
@@ -211,8 +208,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1680" />
-    <option name="height" value="1050" />
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -220,8 +217,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -335,8 +332,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_3_API_29" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-11-28T00:54:39.885Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="89FX09H6T" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-12-04T03:53:47.210Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.recentlyUsedThemes" value="Theme.MaterialComponents.Light" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
@@ -457,7 +454,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.23175965" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.23175965" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -466,13 +463,13 @@
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Run" order="0" weight="0.32891566" />
-      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49928468" weight="0.3255102" />
+      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49928468" weight="0.3253012" />
       <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49928468" weight="0.32891566" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.32959184" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5007153" side_tool="true" weight="0.32891566" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.32959184" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49928468" visible="true" weight="0.3325301" />
+      <window_info active="true" anchor="bottom" id="Build" order="7" sideWeight="0.49928468" visible="true" weight="0.3325301" />
       <window_info anchor="bottom" id="Find" order="8" />
       <window_info anchor="bottom" id="Android Profiler" order="9" weight="0.32891566" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
@@ -795,12 +792,12 @@
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
         </state>
       </provider>
+      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -827,57 +824,57 @@
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/settings_fragment.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="105" lean-forward="true" selection-start-line="105" selection-end-line="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_form.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/SettingsFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="42" column="58" lean-forward="true" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/FormFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="144" column="51" selection-start-line="144" selection-start-column="51" selection-end-line="144" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/LoginActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="96" column="11" selection-start-line="96" selection-start-column="8" selection-end-line="96" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/HomeFragment.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="522" column="5" lean-forward="true" selection-start-line="522" selection-start-column="5" selection-end-line="522" selection-end-column="5" />
+        <state relative-caret-position="7395">
+          <caret line="522" column="5" selection-start-line="522" selection-start-column="5" selection-end-line="522" selection-end-column="5" />
           <folding>
             <element signature="e#35#1130#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/LoginActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1155">
+          <caret line="96" column="11" selection-start-line="96" selection-start-column="8" selection-end-line="96" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/FormFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1920">
+          <caret line="144" column="51" selection-start-line="144" selection-start-column="51" selection-end-line="144" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/SettingsFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="42" column="58" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_form.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/settings_fragment.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1575">
+          <caret line="105" selection-start-line="105" selection-end-line="105" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/myapplication/MainEntryActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        <state relative-caret-position="345">
+          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
         </state>
       </provider>
     </entry>
