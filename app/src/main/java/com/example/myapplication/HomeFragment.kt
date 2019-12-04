@@ -133,6 +133,7 @@ class HomeFragment : Fragment() {
                     cal!!.get(Calendar.YEAR),
                     cal!!.get(Calendar.MONTH),
                     cal!!.get(Calendar.DAY_OF_MONTH)).show()
+                    updateDateInView()
 
             }
 
@@ -185,7 +186,8 @@ class HomeFragment : Fragment() {
                             if (nutritionLabel != null) {
                                 dailyscans.add(nutritionLabel)
                             }
-                            map.put(date, dailyscans)
+                            var dateString = SimpleDateFormat("EEE, MMM d, yyyy").format(nutritionLabel!!.date).toString()
+                            map.put(dateString, dailyscans)
                             mDatabaseReference?.child(userId.toString())?.child("daily_scans")?.setValue(map)
 
                     }

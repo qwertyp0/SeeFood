@@ -90,6 +90,7 @@ class HistoryFragment : Fragment() {
                         val tv = TextView(context)
                         tv.text = data?.child("daily_scans")?.child(date)?.child(index.toString())?.child("name").value.toString()
                         mLinearLayout!!.addView(tv);
+                        tv.width = mLinearLayout!!.width!!
                     }
 
 
