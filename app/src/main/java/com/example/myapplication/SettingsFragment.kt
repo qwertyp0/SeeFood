@@ -40,7 +40,7 @@ class SettingsFragment : Fragment() {
         val view = inflater.inflate(R.layout.settings_fragment, container, false)
         mFragmentManager = fragmentManager
         account = view.findViewById(R.id.account_button)
-//        history = view.findViewById(R.id.history_button)
+        history = view.findViewById(R.id.history_button)
         about = view.findViewById(R.id.about_button)
         logout = view.findViewById(R.id.logout_button)
         accountEmail = view.findViewById(R.id.account_email)
@@ -65,15 +65,15 @@ class SettingsFragment : Fragment() {
             mFragmentTransaction.commit()
         }
 
-//        // Todo create history fragment
-//        history!!.setOnClickListener {
-//            (activity as MainActivity?)!!.changeActionBarTitle(resources.getString(R.string.history_label))
-//            val mFragmentTransaction = mFragmentManager!!.beginTransaction()
-//            mFragmentTransaction.hide(this)
-//            mFragmentTransaction.addToBackStack("settingsFrag")
-//            mFragmentTransaction.replace(android.R.id.content, mHistoryFragment)
-//            mFragmentTransaction.commit()
-//        }
+        // Todo create history fragment
+        history!!.setOnClickListener {
+            (activity as MainActivity?)!!.changeActionBarTitle(resources.getString(R.string.history_label))
+            val mFragmentTransaction = mFragmentManager!!.beginTransaction()
+            mFragmentTransaction.hide(this)
+            mFragmentTransaction.addToBackStack("settingsFrag")
+            mFragmentTransaction.replace(android.R.id.content, mHistoryFragment)
+            mFragmentTransaction.commit()
+        }
 
         about!!.setOnClickListener {
             (activity as MainActivity?)!!.changeActionBarTitle(resources.getString(R.string.about_label))

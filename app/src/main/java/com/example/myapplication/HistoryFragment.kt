@@ -1,6 +1,8 @@
 package com.example.myapplication
 
 import android.app.DatePickerDialog
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,8 +17,8 @@ import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
 import android.widget.LinearLayout
-
-
+import android.widget.Toast
+//import sun.jvm.hotspot.utilities.IntArray
 
 
 private var mFragmentManager: FragmentManager? = null
@@ -87,10 +89,65 @@ class HistoryFragment : Fragment() {
 
                     data?.child("daily_scans")?.child(date)
                             ?.children.forEachIndexed { index, _ ->
+                        var list = data?.child("daily_scans")?.child(date)?.child(index.toString())
+                        Log.i("LIST","The list is: "+ list)
                         val tv = TextView(context)
-                        tv.text = data?.child("daily_scans")?.child(date)?.child(index.toString())?.child("name").value.toString()
-                        mLinearLayout!!.addView(tv);
-                        tv.width = mLinearLayout!!.width!!
+                        tv.text = list?.child("name").value.toString()
+                        tv.layoutParams =  LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+                            //ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                        mLinearLayout!!.addView(tv)
+                        tv!!.setOnClickListener(object : View.OnClickListener {
+                            override fun onClick(p0: View?) {
+//                                val mFragmentTransaction = mFragmentManager!!.beginTransaction()
+//                                mFragmentTransaction.addToBackStack("settingsFrag")
+//                                mFragmentTransaction.replace(android.R.id.content, mFoodItemFragment)
+//                                mFragmentTransaction.commit()
+//                                savedInstanceState?.putString("fats",list?.child("fats").value.toString())
+                                var name = list?.child("name").value.toString()
+                                var meal = list?.child("meal").value.toString()
+                                var fats = list?.child("totalFat").value.toString()
+                                var carbs = list?.child("totalCarb").value.toString()
+                                var protein = list?.child("protein").value.toString()
+                                var satFat = list?.child("saturatedFat").value.toString()
+                                var transFat = list?.child("transFat").value.toString()
+                                var sugar = list?.child("sugars").value.toString()
+                                var sodium = list?.child("sodiuum").value.toString()
+                                var fiber = list?.child("fiber").value.toString()
+                                var cholesterol = list?.child("cholesterol").value.toString()
+
+                                val dialogBuilder = AlertDialog.Builder(context)
+
+                                // set message of alert dialog
+                                dialogBuilder.setMessage(
+                                        "Fat: " + fats + "g\n" +
+                                        "Carbohydrates: "+ carbs+ "g\n" +
+                                        "Protein: " + protein + "g\n" +
+                                        "Saturated Fat: " + satFat + "g\n" +
+                                        "Trans Fat: " + transFat + "g\n" +
+                                        "Sugar: " + sugar + "g\n" +
+                                        "Sodium: " + sodium + "g\n" +
+                                        "Fiber: " + fiber + "g\n" +
+                                        "Cholesterol: " + cholesterol + "g\n" )
+                                    // if the dialog is cancelable
+                                    .setCancelable(false)
+                                    // positive button text and action
+                                    .setPositiveButton("OK", DialogInterface.OnClickListener {
+                                            dialog, id -> dialog.cancel()
+                                    })
+
+
+                                // create dialog box
+                                val alert = dialogBuilder.create()
+                                // set title for alert dialog box
+                                alert.setTitle(name + " ("+meal+")")
+                                // show alert dialog
+                                alert.show()
+
+
+                            }
+                        })
+
+
                     }
 
 
